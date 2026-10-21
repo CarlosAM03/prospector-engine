@@ -1,0 +1,7 @@
+include LICENSE README.md Handoff-ACTUAL.md Dockerfile .dockerignore
+recursive-include requirements *.txt
+recursive-include docs *.md *.json
+recursive-include scripts *.py
+recursive-include tests *.py
+recursive-include .github *.yml
+global-exclude __pycache__ *.py[cod]

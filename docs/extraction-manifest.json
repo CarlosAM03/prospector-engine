@@ -1,0 +1,1366 @@
+[
+  {
+    "source": "src/app_paths.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/cli_app.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/cli_runtime.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/engines/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/__init__.py",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit",
+      "tests/integration"
+    ],
+    "target_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "src/engines/_observability.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/_observability.py",
+    "source_sha256": "f782a5fc21dda5d5ad3b77ebb2742c17e3648ebd9f8d7f93aa2164df7e56ef3f",
+    "classification": "AMPLIADO CON CONTRATO NUEVO",
+    "dependencies": [
+      "collections.abc",
+      "contextlib",
+      "contextvars",
+      "dataclasses",
+      "logging",
+      "prospector_engine.cancellation"
+    ],
+    "modification": "Check cooperative token before existing execution events",
+    "target_sha256": "538accea1715687058de176c6ce35267766cee517f1e68571b5e5625c2a1c973",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_execution_observability.py",
+      "tests/unit/test_public_extensions.py"
+    ],
+    "target_lf_sha256": "538accea1715687058de176c6ce35267766cee517f1e68571b5e5625c2a1c973"
+  },
+  {
+    "source": "src/engines/_timing.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/_timing.py",
+    "source_sha256": "83ffa7c422cdf654eef0ace9aa278b5bd9815d438895c35b987806e931a81c26",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "playwright.sync_api",
+      "time"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "83ffa7c422cdf654eef0ace9aa278b5bd9815d438895c35b987806e931a81c26",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_timing_budgets.py"
+    ],
+    "target_lf_sha256": "83ffa7c422cdf654eef0ace9aa278b5bd9815d438895c35b987806e931a81c26"
+  },
+  {
+    "source": "src/engines/batch/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/batch/__init__.py",
+    "source_sha256": "fcae08bbf545d8598908fd24d03a7b3134f1aa654da2238c3ba1b7a091b577b7",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "prospector_engine.engines.batch.deduplication"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "1b938cf8cb367b4d7755e7d97f4c5ec3a711f0efe7f8c2c4457e1555842917a4",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_batch_deduplication.py",
+      "tests/integration/test_batch_coordinator.py",
+      "tests/integration/test_batch_deduplication_integration.py"
+    ],
+    "target_lf_sha256": "1b938cf8cb367b4d7755e7d97f4c5ec3a711f0efe7f8c2c4457e1555842917a4"
+  },
+  {
+    "source": "src/engines/batch/deduplication.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/batch/deduplication.py",
+    "source_sha256": "e89e2984756319558584a989d4900df9ab737a7019d7f3939b3cbfd7f74d3d47",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "dataclasses",
+      "prospector_engine.models.batch",
+      "prospector_engine.models.source_identity"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "6b0f43c3ce1874b1765c1023cdd40ae3d1f72fd5948d9d2800afc00571012131",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_batch_deduplication.py",
+      "tests/integration/test_batch_coordinator.py",
+      "tests/integration/test_batch_deduplication_integration.py"
+    ],
+    "target_lf_sha256": "6b0f43c3ce1874b1765c1023cdd40ae3d1f72fd5948d9d2800afc00571012131"
+  },
+  {
+    "source": "src/engines/browser_runtime.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/browser_runtime.py",
+    "source_sha256": "bebd60ce9481c382a2b0d3b8897a3a252c2eec9fe2272f8d5255966769493605",
+    "classification": "AMPLIADO CON CONTRATO NUEVO",
+    "dependencies": [
+      "asyncio",
+      "atexit",
+      "contextlib",
+      "logging",
+      "playwright.sync_api",
+      "prospector_engine.engines.errors",
+      "subprocess",
+      "sys"
+    ],
+    "modification": "Configurable browser and actionable Chromium failure; Windows constant fallback",
+    "target_sha256": "3d396566efcdd980454ea64ffd2b4bd3f5731620c7340b66f9eb928e61202155",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_browser_runtime.py",
+      "tests/integration/test_cooperative_cancellation.py",
+      "tests/integration/test_browser_availability.py"
+    ],
+    "target_lf_sha256": "3d396566efcdd980454ea64ffd2b4bd3f5731620c7340b66f9eb928e61202155"
+  },
+  {
+    "source": "src/engines/config.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/config.py",
+    "source_sha256": "87001b2f5e006af882a8d2f31235515cec15d21c28d0cdff886deaaf4ed80166",
+    "classification": "AMPLIADO CON CONTRATO NUEVO",
+    "dependencies": [
+      "dataclasses"
+    ],
+    "modification": "Add browser_channel; Edge default unchanged",
+    "target_sha256": "c429cd2fa91c06138f490a4ceb7efd998aa930ebc375a07af1633d3d61ed8296",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_engine_config.py",
+      "tests/unit/test_prospector_engine.py"
+    ],
+    "target_lf_sha256": "c429cd2fa91c06138f490a4ceb7efd998aa930ebc375a07af1633d3d61ed8296"
+  },
+  {
+    "source": "src/engines/errors.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/errors.py",
+    "source_sha256": "9da5f87058ea7c60d504f551c17e26ed523cc9ec72f9aff5b41b8daace06f837",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "9da5f87058ea7c60d504f551c17e26ed523cc9ec72f9aff5b41b8daace06f837",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit",
+      "tests/integration"
+    ],
+    "target_lf_sha256": "9da5f87058ea7c60d504f551c17e26ed523cc9ec72f9aff5b41b8daace06f837"
+  },
+  {
+    "source": "src/engines/global_pipeline.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/global_pipeline.py",
+    "source_sha256": "0b9fb365d23ca6b383bbfc0ece066dba69246407e16c0950d484027bfcb78855",
+    "classification": "AMPLIADO CON CONTRATO NUEVO",
+    "dependencies": [
+      "collections.abc",
+      "dataclasses",
+      "prospector_engine.engines._observability",
+      "prospector_engine.engines.issue_collector",
+      "prospector_engine.engines.normalization",
+      "prospector_engine.models.business",
+      "prospector_engine.models.search_issue",
+      "prospector_engine.models.search_query",
+      "prospector_engine.models.search_result",
+      "prospector_engine.models.source_identity",
+      "time",
+      "typing"
+    ],
+    "modification": "Promote existing aligned evidence into result",
+    "target_sha256": "52f5209022de0c4e5783b177cedb34fdf27e1344ed4480a413f16158ee7a50da",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/integration/test_global_normalization_pipeline.py",
+      "tests/integration/test_source_identity_sidecar.py"
+    ],
+    "target_lf_sha256": "52f5209022de0c4e5783b177cedb34fdf27e1344ed4480a413f16158ee7a50da"
+  },
+  {
+    "source": "src/engines/issue_collector.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/issue_collector.py",
+    "source_sha256": "5d6864830c2c049bf1effa81106a2cabb3e9310a8f63827b644163c9517707b8",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "prospector_engine.engines._observability",
+      "prospector_engine.models.search_issue"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "602efda4ae623a5f41e47d1a47271a5fa5b2c65ff3ab2c4ca4128fa4e7956687",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_search_issues.py"
+    ],
+    "target_lf_sha256": "602efda4ae623a5f41e47d1a47271a5fa5b2c65ff3ab2c4ca4128fa4e7956687"
+  },
+  {
+    "source": "src/engines/navigation/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/navigation/__init__.py",
+    "source_sha256": "9e93decda2cce3c174433e0880dd061556b2bc7ccc25bf73398c9989f51a4650",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "google_maps_navigation",
+      "navigation_engine"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "9e93decda2cce3c174433e0880dd061556b2bc7ccc25bf73398c9989f51a4650",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_navigation.py",
+      "tests/integration/test_typed_engine_failures.py"
+    ],
+    "target_lf_sha256": "9e93decda2cce3c174433e0880dd061556b2bc7ccc25bf73398c9989f51a4650"
+  },
+  {
+    "source": "src/engines/navigation/google_maps_navigation.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/navigation/google_maps_navigation.py",
+    "source_sha256": "5902b358d23c0f534917d3f496e1e220346b2a6cd7222a5b1eecc4088539893f",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "playwright.sync_api",
+      "prospector_engine.engines._timing",
+      "prospector_engine.engines.selector",
+      "time"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "afcdd442e11af7b6f07058f304384af5f69443fb0cd5933c082f8a27666902fb",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_navigation.py",
+      "tests/integration/test_typed_engine_failures.py"
+    ],
+    "target_lf_sha256": "afcdd442e11af7b6f07058f304384af5f69443fb0cd5933c082f8a27666902fb"
+  },
+  {
+    "source": "src/engines/navigation/navigation_engine.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/navigation/navigation_engine.py",
+    "source_sha256": "bbbb39f68140d411def8dd665a3780d4f2387deae3c4a9efb589e74228d11009",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "google_maps_navigation",
+      "playwright.sync_api",
+      "prospector_engine.models.search_query"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "1691d4e478c98c81a7c12e8c932632f93ef29af19c51502c6d8902e5152fd696",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_navigation.py",
+      "tests/integration/test_typed_engine_failures.py"
+    ],
+    "target_lf_sha256": "1691d4e478c98c81a7c12e8c932632f93ef29af19c51502c6d8902e5152fd696"
+  },
+  {
+    "source": "src/engines/normalization/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/normalization/__init__.py",
+    "source_sha256": "894bbc9edcc08b3893f364d7d6931a268645d7e555cab0523706cb93d43381e6",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "normalization_engine"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "894bbc9edcc08b3893f364d7d6931a268645d7e555cab0523706cb93d43381e6",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_normalization_rules.py",
+      "tests/unit/test_normalization_engine.py",
+      "tests/integration/test_global_normalization_pipeline.py"
+    ],
+    "target_lf_sha256": "894bbc9edcc08b3893f364d7d6931a268645d7e555cab0523706cb93d43381e6"
+  },
+  {
+    "source": "src/engines/normalization/normalization_engine.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/normalization/normalization_engine.py",
+    "source_sha256": "ea6a787e7347d663469bc185081ec13de5ff20a9f8676070fdd2ce712a385749",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "",
+      "copy",
+      "dataclasses",
+      "prospector_engine.engines.issue_collector",
+      "prospector_engine.models.business",
+      "prospector_engine.models.normalized_business",
+      "re"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "6c91168351e4122837f1904223ff8774fd771860d72ddf934917df0ddc241ee9",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_normalization_rules.py",
+      "tests/unit/test_normalization_engine.py",
+      "tests/integration/test_global_normalization_pipeline.py"
+    ],
+    "target_lf_sha256": "6c91168351e4122837f1904223ff8774fd771860d72ddf934917df0ddc241ee9"
+  },
+  {
+    "source": "src/engines/normalization/rules.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/normalization/rules.py",
+    "source_sha256": "b13b1ac8ab95e9e5815b9934e7d6c1e3ab7d765e717fbabfb9cffd6652fc0d90",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "re"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "b13b1ac8ab95e9e5815b9934e7d6c1e3ab7d765e717fbabfb9cffd6652fc0d90",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_normalization_rules.py",
+      "tests/unit/test_normalization_engine.py",
+      "tests/integration/test_global_normalization_pipeline.py"
+    ],
+    "target_lf_sha256": "b13b1ac8ab95e9e5815b9934e7d6c1e3ab7d765e717fbabfb9cffd6652fc0d90"
+  },
+  {
+    "source": "src/engines/prospector_engine.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/prospector_engine.py",
+    "source_sha256": "e65789a072d829e29d5cf39e55cc0d9942fb935b82d05ed88b66db609ac0e36e",
+    "classification": "AMPLIADO CON CONTRATO NUEVO",
+    "dependencies": [
+      "collections.abc",
+      "prospector_engine.engines._observability",
+      "prospector_engine.engines.batch",
+      "prospector_engine.engines.config",
+      "prospector_engine.engines.errors",
+      "prospector_engine.engines.global_pipeline",
+      "prospector_engine.models.batch",
+      "prospector_engine.models.search_query",
+      "prospector_engine.models.search_result",
+      "prospector_engine.scraper.google_maps.scraper",
+      "time"
+    ],
+    "modification": "Forward opt-in Chromium configuration for single/batch",
+    "target_sha256": "691a50be324f64dd3bead655f55b987ff178a4189bb45b15bb2ff599eb19510d",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_prospector_engine.py",
+      "tests/unit/test_public_extensions.py",
+      "tests/integration/test_batch_coordinator.py"
+    ],
+    "target_lf_sha256": "691a50be324f64dd3bead655f55b987ff178a4189bb45b15bb2ff599eb19510d"
+  },
+  {
+    "source": "src/engines/selector/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/selector/__init__.py",
+    "source_sha256": "61f408827722e753d80fe94d53d80276bfdfac7c62056f00bc25a4a719363759",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "elector_engine",
+      "lazycharge",
+      "registry",
+      "selector_engine"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "61f408827722e753d80fe94d53d80276bfdfac7c62056f00bc25a4a719363759",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_selector_infrastructure.py",
+      "tests/unit/test_lazycharge_semantics.py"
+    ],
+    "target_lf_sha256": "61f408827722e753d80fe94d53d80276bfdfac7c62056f00bc25a4a719363759"
+  },
+  {
+    "source": "src/engines/selector/elector_engine.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/selector/elector_engine.py",
+    "source_sha256": "1c0361f9e21719c51f84e8c0769666692e206ebf6cb4afbb63e3430c642fd842",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "playwright.sync_api"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "3ad939d5942de838eff40f772d6dd9b2608fabf4b9615f127fcb784fa3003a19",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_selector_infrastructure.py",
+      "tests/unit/test_lazycharge_semantics.py"
+    ],
+    "target_lf_sha256": "3ad939d5942de838eff40f772d6dd9b2608fabf4b9615f127fcb784fa3003a19"
+  },
+  {
+    "source": "src/engines/selector/lazycharge.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/selector/lazycharge.py",
+    "source_sha256": "fd048ab132224307d6c187427eee0816c56fc6f965aa259863bed84ced61fa09",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "playwright.sync_api",
+      "selector_engine"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "971fc3753949b90314a49632ef028c3a582e456a6438d5e26cdaff07f1e5ae0e",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_selector_infrastructure.py",
+      "tests/unit/test_lazycharge_semantics.py"
+    ],
+    "target_lf_sha256": "971fc3753949b90314a49632ef028c3a582e456a6438d5e26cdaff07f1e5ae0e"
+  },
+  {
+    "source": "src/engines/selector/profiles.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/selector/profiles.py",
+    "source_sha256": "ba8097db8f81b3f152b64d7a805708c494c371d66808ab531baaee78b2b40c08",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "ba8097db8f81b3f152b64d7a805708c494c371d66808ab531baaee78b2b40c08",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_selector_infrastructure.py",
+      "tests/unit/test_lazycharge_semantics.py"
+    ],
+    "target_lf_sha256": "ba8097db8f81b3f152b64d7a805708c494c371d66808ab531baaee78b2b40c08"
+  },
+  {
+    "source": "src/engines/selector/registry.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/selector/registry.py",
+    "source_sha256": "d8ae9af627a0b7c81dec5bc527d211cf62327696b81e23c3bf723c78e694719b",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "collections.abc",
+      "profiles"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "d8ae9af627a0b7c81dec5bc527d211cf62327696b81e23c3bf723c78e694719b",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_selector_infrastructure.py",
+      "tests/unit/test_lazycharge_semantics.py"
+    ],
+    "target_lf_sha256": "d8ae9af627a0b7c81dec5bc527d211cf62327696b81e23c3bf723c78e694719b"
+  },
+  {
+    "source": "src/engines/selector/selector_engine.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/selector/selector_engine.py",
+    "source_sha256": "b7566e80d0b63c97f9f6dea3c93abc3f31888206bf8d7faed230e535d6471ae2",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "elector_engine",
+      "playwright.sync_api",
+      "registry",
+      "time"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "b7566e80d0b63c97f9f6dea3c93abc3f31888206bf8d7faed230e535d6471ae2",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_selector_infrastructure.py",
+      "tests/unit/test_lazycharge_semantics.py"
+    ],
+    "target_lf_sha256": "b7566e80d0b63c97f9f6dea3c93abc3f31888206bf8d7faed230e535d6471ae2"
+  },
+  {
+    "source": "src/engines/website/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/website/__init__.py",
+    "source_sha256": "b8f63027c68db15100a64e60423618fb88650ac7aeb6497fdc2f73237c8d7cf6",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "crawler",
+      "metadata",
+      "parser",
+      "website_engine"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "b8f63027c68db15100a64e60423618fb88650ac7aeb6497fdc2f73237c8d7cf6",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "b8f63027c68db15100a64e60423618fb88650ac7aeb6497fdc2f73237c8d7cf6"
+  },
+  {
+    "source": "src/engines/website/crawler.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/website/crawler.py",
+    "source_sha256": "06680ec5d04aafa7cf2a3622d43d1362b947a29727f891240305297cc91d2287",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "playwright.sync_api",
+      "prospector_engine.models.website_document"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "346d29740f5ae5cab29a5c443ecad23ae8ce9dd30b38113213ce064c367029a6",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "346d29740f5ae5cab29a5c443ecad23ae8ce9dd30b38113213ce064c367029a6"
+  },
+  {
+    "source": "src/engines/website/email.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/website/email.py",
+    "source_sha256": "f3ce3295cf3f942355e0216e3697a0a70f8eb819a74ba130be6b0a7de8c4da41",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "re",
+      "urllib.parse"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "f3ce3295cf3f942355e0216e3697a0a70f8eb819a74ba130be6b0a7de8c4da41",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "f3ce3295cf3f942355e0216e3697a0a70f8eb819a74ba130be6b0a7de8c4da41"
+  },
+  {
+    "source": "src/engines/website/extractor.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/website/extractor.py",
+    "source_sha256": "09fba0a49a473b87eb1d297ac05705bce4a2a6833f49bfd59ff5d1c0f7e209ec",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "prospector_engine.engines.website.email",
+      "prospector_engine.engines.website.lenguaje",
+      "prospector_engine.engines.website.metadata",
+      "prospector_engine.models.website_metadata"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "7a2414bd85dc30dffc8be829d73473acfae8501cdf27e837a4bfa8f111e6628d",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "7a2414bd85dc30dffc8be829d73473acfae8501cdf27e837a4bfa8f111e6628d"
+  },
+  {
+    "source": "src/engines/website/lenguaje.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/website/lenguaje.py",
+    "source_sha256": "7b878de566f89628e149953b64e39de8ca82fc24889f3a3d14ac70564f470c11",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "7b878de566f89628e149953b64e39de8ca82fc24889f3a3d14ac70564f470c11",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "7b878de566f89628e149953b64e39de8ca82fc24889f3a3d14ac70564f470c11"
+  },
+  {
+    "source": "src/engines/website/metadata.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/website/metadata.py",
+    "source_sha256": "16fefe5d2bd1cd2459e578530ea024ab7bfd91bf2c1a39ff931575dbeaf55e67",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "prospector_engine.models.website_metadata",
+      "urllib.parse"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "db4c26d891a81643d1c22de29f7f531d75663c13994210d9f62b90ffe221a9a1",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "db4c26d891a81643d1c22de29f7f531d75663c13994210d9f62b90ffe221a9a1"
+  },
+  {
+    "source": "src/engines/website/parser.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/website/parser.py",
+    "source_sha256": "52ff1d8b14edb55265525fcf7ddf1553ce1fbb098739fe1b3be616c02f391163",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "bs4",
+      "prospector_engine.models.website_document"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "6007e88a19b53331f44e2619615022001075c9eeeb3433652a01ade67365e37d",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "6007e88a19b53331f44e2619615022001075c9eeeb3433652a01ade67365e37d"
+  },
+  {
+    "source": "src/engines/website/website_engine.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/engines/website/website_engine.py",
+    "source_sha256": "52e8cd9a4148417f8fa59b97b93f2193c212a466d58ba366712d3f8f7779a78f",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "playwright.sync_api",
+      "prospector_engine.engines.website.crawler",
+      "prospector_engine.engines.website.extractor",
+      "prospector_engine.engines.website.parser",
+      "prospector_engine.models.website_metadata"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "54f73bc070271ac91ef3f9467307a3fe7c76a62a7fd2790588f0c9cb5788dad0",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "54f73bc070271ac91ef3f9467307a3fe7c76a62a7fd2790588f0c9cb5788dad0"
+  },
+  {
+    "source": "src/exporters/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/exporters/base.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/exporters/csv.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/exporters/excel.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/exporters/export_view.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/main.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/models/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/__init__.py",
+    "source_sha256": "2a487af524df240589901a038cfe728e36598a41d5dcf1605e4da4e946acf9d9",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "batch",
+      "business",
+      "normalized_business",
+      "search_query",
+      "search_result",
+      "source_identity",
+      "website_document",
+      "website_metadata"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "2a487af524df240589901a038cfe728e36598a41d5dcf1605e4da4e946acf9d9",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_models.py",
+      "tests/unit/test_normalized_business.py",
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_public_extensions.py"
+    ],
+    "target_lf_sha256": "2a487af524df240589901a038cfe728e36598a41d5dcf1605e4da4e946acf9d9"
+  },
+  {
+    "source": "src/models/batch.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/batch.py",
+    "source_sha256": "ea527eb7da3a323e532e03b8821da378c8b284a01f1bd62f078732e8385e09a2",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "dataclasses",
+      "enum",
+      "prospector_engine.models.search_query",
+      "prospector_engine.models.search_result",
+      "prospector_engine.models.source_identity"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "3cadf79fddac90865e20e09aa603db37894990877790cb70f872c5f29d5e7354",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_batch_deduplication.py",
+      "tests/integration/test_batch_coordinator.py",
+      "tests/integration/test_batch_deduplication_integration.py"
+    ],
+    "target_lf_sha256": "3cadf79fddac90865e20e09aa603db37894990877790cb70f872c5f29d5e7354"
+  },
+  {
+    "source": "src/models/business.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/business.py",
+    "source_sha256": "cc782ceb3d57ff20faad556f1157c5086b39d068c3249e04d69bce4d0d768b86",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "dataclasses"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "cc782ceb3d57ff20faad556f1157c5086b39d068c3249e04d69bce4d0d768b86",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_models.py",
+      "tests/unit/test_normalized_business.py",
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_public_extensions.py"
+    ],
+    "target_lf_sha256": "cc782ceb3d57ff20faad556f1157c5086b39d068c3249e04d69bce4d0d768b86"
+  },
+  {
+    "source": "src/models/normalized_business.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/normalized_business.py",
+    "source_sha256": "73070e6a0f1bd746df31d8fa4a9ab15580e3e791cc6ce0311ad385f278ed1047",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "dataclasses"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "73070e6a0f1bd746df31d8fa4a9ab15580e3e791cc6ce0311ad385f278ed1047",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_models.py",
+      "tests/unit/test_normalized_business.py",
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_public_extensions.py"
+    ],
+    "target_lf_sha256": "73070e6a0f1bd746df31d8fa4a9ab15580e3e791cc6ce0311ad385f278ed1047"
+  },
+  {
+    "source": "src/models/search_issue.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/search_issue.py",
+    "source_sha256": "6188924c08d118a664173de2eb9570ca3b3fb94e890998839aaeb245761adffb",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "dataclasses"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "6188924c08d118a664173de2eb9570ca3b3fb94e890998839aaeb245761adffb",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_models.py",
+      "tests/unit/test_normalized_business.py",
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_public_extensions.py"
+    ],
+    "target_lf_sha256": "6188924c08d118a664173de2eb9570ca3b3fb94e890998839aaeb245761adffb"
+  },
+  {
+    "source": "src/models/search_query.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/search_query.py",
+    "source_sha256": "1a37a850de1c9444be403c1675a77abcfc79b20833d641939ed70e169c5771e3",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "dataclasses",
+      "enum"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "1a37a850de1c9444be403c1675a77abcfc79b20833d641939ed70e169c5771e3",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_models.py",
+      "tests/unit/test_normalized_business.py",
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_public_extensions.py"
+    ],
+    "target_lf_sha256": "1a37a850de1c9444be403c1675a77abcfc79b20833d641939ed70e169c5771e3"
+  },
+  {
+    "source": "src/models/search_result.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/search_result.py",
+    "source_sha256": "b9a6d900381a95fd3e397203c23d894d7469283ae161d6614d5370948ef4f1e4",
+    "classification": "AMPLIADO CON CONTRATO NUEVO",
+    "dependencies": [
+      "dataclasses",
+      "prospector_engine.models.business",
+      "prospector_engine.models.normalized_business",
+      "prospector_engine.models.search_issue",
+      "prospector_engine.models.search_query",
+      "prospector_engine.models.source_identity"
+    ],
+    "modification": "Add keyword-only aligned source_identities with unknown defaults",
+    "target_sha256": "f1420a8235cffd8ebd516c7979d640a667a46efdfcc44ae6a1de70fd8e3638dd",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_models.py",
+      "tests/unit/test_normalized_business.py",
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_public_extensions.py"
+    ],
+    "target_lf_sha256": "f1420a8235cffd8ebd516c7979d640a667a46efdfcc44ae6a1de70fd8e3638dd"
+  },
+  {
+    "source": "src/models/source_identity.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/source_identity.py",
+    "source_sha256": "0afdf671126f0ebef1f115f5030e6ff5bae9308cf09ee925247698ab8918f7cd",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "dataclasses",
+      "enum",
+      "prospector_engine.models.search_query"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "8d77cbd6cdd0984c6f82a5f22b07a9f2e0e285c65955f3e803972c45d9192a25",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_models.py",
+      "tests/unit/test_normalized_business.py",
+      "tests/unit/test_batch_contracts.py",
+      "tests/unit/test_public_extensions.py"
+    ],
+    "target_lf_sha256": "8d77cbd6cdd0984c6f82a5f22b07a9f2e0e285c65955f3e803972c45d9192a25"
+  },
+  {
+    "source": "src/models/website_document.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/website_document.py",
+    "source_sha256": "7125258f934283d0312d38d324110618da0c16184a3260ae2473a1e4f2e6ae42",
+    "classification": "REFACTORIZADO SIN CAMBIO SEMÁNTICO",
+    "dependencies": [
+      "dataclasses"
+    ],
+    "modification": "Trim trailing whitespace inside module docstring only",
+    "target_sha256": "0113e99f65c779ff83964144c2d22052182ca25c92ffe993b92089c2eca73662",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "0113e99f65c779ff83964144c2d22052182ca25c92ffe993b92089c2eca73662"
+  },
+  {
+    "source": "src/models/website_metadata.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/models/website_metadata.py",
+    "source_sha256": "a7f5b02846792152de5fe8f71fd33cf6a985c48f5dbe3f25e0a1650adc317593",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "dataclasses"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "a7f5b02846792152de5fe8f71fd33cf6a985c48f5dbe3f25e0a1650adc317593",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "a7f5b02846792152de5fe8f71fd33cf6a985c48f5dbe3f25e0a1650adc317593"
+  },
+  {
+    "source": "src/scraper/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/__init__.py",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit",
+      "tests/integration"
+    ],
+    "target_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "src/scraper/google_maps/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/google_maps/__init__.py",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_detail_panel.py",
+      "tests/unit/test_google_maps_result_list.py",
+      "tests/unit/test_google_maps_source_identity.py",
+      "tests/integration/test_google_maps_pipeline_controlled.py",
+      "tests/integration/test_virtual_feed_detail_recovery.py"
+    ],
+    "target_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "src/scraper/google_maps/detail_panel.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/google_maps/detail_panel.py",
+    "source_sha256": "8ab8c7b5e149fdbeefb18fdd2142ee68c33c4eab448e41b4568b8c7c43e0e138",
+    "classification": "REFACTORIZADO SIN CAMBIO SEMÁNTICO",
+    "dependencies": [
+      "prospector_engine.engines._timing",
+      "prospector_engine.engines.selector.lazycharge",
+      "prospector_engine.models.business",
+      "re",
+      "selectors",
+      "time",
+      "urllib.parse"
+    ],
+    "modification": "Remove unused parser import (lint)",
+    "target_sha256": "3443e5897b2af061df9f25e0e283d1e29b7349b97717f6ec565dcdddfe50582f",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_detail_panel.py",
+      "tests/unit/test_google_maps_result_list.py",
+      "tests/unit/test_google_maps_source_identity.py",
+      "tests/integration/test_google_maps_pipeline_controlled.py",
+      "tests/integration/test_virtual_feed_detail_recovery.py"
+    ],
+    "target_lf_sha256": "3443e5897b2af061df9f25e0e283d1e29b7349b97717f6ec565dcdddfe50582f"
+  },
+  {
+    "source": "src/scraper/google_maps/parser.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/google_maps/parser.py",
+    "source_sha256": "742933f044d12ca8868ad2c234ae6d97bcc369c177661a39fcc2c865c6e51575",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "prospector_engine.engines._timing",
+      "prospector_engine.utils.parser"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "cf0bdfdb47166ae049a9bb4bcdd3d4a1f62e4ef46e8042594736b54b9c596bf6",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_detail_panel.py",
+      "tests/unit/test_google_maps_result_list.py",
+      "tests/unit/test_google_maps_source_identity.py",
+      "tests/integration/test_google_maps_pipeline_controlled.py",
+      "tests/integration/test_virtual_feed_detail_recovery.py"
+    ],
+    "target_lf_sha256": "cf0bdfdb47166ae049a9bb4bcdd3d4a1f62e4ef46e8042594736b54b9c596bf6"
+  },
+  {
+    "source": "src/scraper/google_maps/result_list.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/google_maps/result_list.py",
+    "source_sha256": "30f7e1887f684fc2b41429d2a163aa3ed57333e6ee174788604572f517bad6d5",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "logging",
+      "parser",
+      "playwright.sync_api",
+      "prospector_engine.engines._observability",
+      "prospector_engine.engines._timing",
+      "prospector_engine.engines.selector.lazycharge",
+      "prospector_engine.models.business",
+      "selectors",
+      "time"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "49f4c3731f6cc971309140f00567971d9573dbb96791c8c849bd30d7a419fae5",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_detail_panel.py",
+      "tests/unit/test_google_maps_result_list.py",
+      "tests/unit/test_google_maps_source_identity.py",
+      "tests/integration/test_google_maps_pipeline_controlled.py",
+      "tests/integration/test_virtual_feed_detail_recovery.py"
+    ],
+    "target_lf_sha256": "49f4c3731f6cc971309140f00567971d9573dbb96791c8c849bd30d7a419fae5"
+  },
+  {
+    "source": "src/scraper/google_maps/scraper.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/google_maps/scraper.py",
+    "source_sha256": "adae506e14b8e09fa8e749edf76c479e4780e41606f5756afff529c972d76787",
+    "classification": "AMPLIADO CON CONTRATO NUEVO",
+    "dependencies": [
+      "dataclasses",
+      "detail_panel",
+      "parser",
+      "playwright.sync_api",
+      "prospector_engine.engines._observability",
+      "prospector_engine.engines.browser_runtime",
+      "prospector_engine.engines.errors",
+      "prospector_engine.engines.global_pipeline",
+      "prospector_engine.engines.issue_collector",
+      "prospector_engine.models.business",
+      "prospector_engine.models.search_issue",
+      "prospector_engine.models.search_query",
+      "prospector_engine.models.search_result",
+      "prospector_engine.models.source_identity",
+      "result_list",
+      "search",
+      "source_identity",
+      "time",
+      "website_enrichment"
+    ],
+    "modification": "Pass configurable channel, preserving default call",
+    "target_sha256": "adc9fe15ed9ccf13b25d61d9dea70e810f5d4decef2d6df299c3cb19bea93986",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_detail_panel.py",
+      "tests/unit/test_google_maps_result_list.py",
+      "tests/unit/test_google_maps_source_identity.py",
+      "tests/integration/test_google_maps_pipeline_controlled.py",
+      "tests/integration/test_virtual_feed_detail_recovery.py"
+    ],
+    "target_lf_sha256": "adc9fe15ed9ccf13b25d61d9dea70e810f5d4decef2d6df299c3cb19bea93986"
+  },
+  {
+    "source": "src/scraper/google_maps/search.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/google_maps/search.py",
+    "source_sha256": "b966529ba857d4d9ae9a31c8d7bd2fd8e1c7f2be888761aa0f9e62b2fbe76fc1",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "prospector_engine.engines.navigation",
+      "prospector_engine.models.search_query"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "6b2d497c58daf9e054b198363774b3afa07883fd84344191455893a7d7c08f91",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_detail_panel.py",
+      "tests/unit/test_google_maps_result_list.py",
+      "tests/unit/test_google_maps_source_identity.py",
+      "tests/integration/test_google_maps_pipeline_controlled.py",
+      "tests/integration/test_virtual_feed_detail_recovery.py"
+    ],
+    "target_lf_sha256": "6b2d497c58daf9e054b198363774b3afa07883fd84344191455893a7d7c08f91"
+  },
+  {
+    "source": "src/scraper/google_maps/selectors.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/google_maps/selectors.py",
+    "source_sha256": "25ec3279dad9c1a7c55f3b2016cc360ded42574ca47f47ee0fa31d5a018184f9",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "prospector_engine.engines.selector.selector_engine"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "48c9c770c7a96abc2ca7265e001e1387c99a9027c88acd0558b0624412593ecc",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_selector_infrastructure.py",
+      "tests/unit/test_lazycharge_semantics.py"
+    ],
+    "target_lf_sha256": "48c9c770c7a96abc2ca7265e001e1387c99a9027c88acd0558b0624412593ecc"
+  },
+  {
+    "source": "src/scraper/google_maps/source_identity.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/google_maps/source_identity.py",
+    "source_sha256": "b14886b311e73f80e41be5d0f1ebda62896c73dcb94e0e91525f3552d85bc7e7",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "prospector_engine.models.search_query",
+      "prospector_engine.models.source_identity",
+      "re",
+      "urllib.parse"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "3d5d143993ceb3d1c2f0bc6205cee0452b660e04b618932f8468663f62b021ae",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_google_maps_detail_panel.py",
+      "tests/unit/test_google_maps_result_list.py",
+      "tests/unit/test_google_maps_source_identity.py",
+      "tests/integration/test_google_maps_pipeline_controlled.py",
+      "tests/integration/test_virtual_feed_detail_recovery.py"
+    ],
+    "target_lf_sha256": "3d5d143993ceb3d1c2f0bc6205cee0452b660e04b618932f8468663f62b021ae"
+  },
+  {
+    "source": "src/scraper/google_maps/website_enrichment.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/scraper/google_maps/website_enrichment.py",
+    "source_sha256": "a803953cce7b3c2734e34f9a7ffd56284db9425f3a5f6e85b71d41e3746f0325",
+    "classification": "ADAPTADO POR PACKAGING",
+    "dependencies": [
+      "logging",
+      "playwright.sync_api",
+      "prospector_engine.engines._observability",
+      "prospector_engine.engines.website.website_engine",
+      "prospector_engine.models.business"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "dc3cc40b0b0f3683444683d6dcae556ab3328783d6a3a03d6dbddea7ddbd2f19",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_website_components.py",
+      "tests/unit/test_google_maps_website_enrichment.py",
+      "tests/integration/test_controlled_website_engine.py"
+    ],
+    "target_lf_sha256": "dc3cc40b0b0f3683444683d6dcae556ab3328783d6a3a03d6dbddea7ddbd2f19"
+  },
+  {
+    "source": "src/services/_export_directory.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/services/export_service.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/utils/__init__.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/utils/__init__.py",
+    "source_sha256": "74aff7eb0198fc1711f986b270b4133569f33ad9311fae142622f1eb4f98484a",
+    "classification": "REFACTORIZADO SIN CAMBIO SEMÁNTICO",
+    "dependencies": [
+      "prospector_engine.utils.parser"
+    ],
+    "modification": "Explicit re-export alias (lint)",
+    "target_sha256": "73cbc263c45ca7b206166f82a1cd3ecea2ae4ba16d6370b9c4f4261e81144782",
+    "ast_equivalent_after_packaging": false,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_parser_helpers.py",
+      "tests/unit/test_summary_parser_characterization.py"
+    ],
+    "target_lf_sha256": "73cbc263c45ca7b206166f82a1cd3ecea2ae4ba16d6370b9c4f4261e81144782"
+  },
+  {
+    "source": "src/utils/file_naming.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  },
+  {
+    "source": "src/utils/parser.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": "src/prospector_engine/utils/parser.py",
+    "source_sha256": "32db18ed66b1c2975ca87d1375fa40a22c15d23de75debaa9d545ad84be2e1fa",
+    "classification": "COPIADO SIN CAMBIO FUNCIONAL",
+    "dependencies": [
+      "re"
+    ],
+    "modification": "Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging",
+    "target_sha256": "32db18ed66b1c2975ca87d1375fa40a22c15d23de75debaa9d545ad84be2e1fa",
+    "ast_equivalent_after_packaging": true,
+    "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
+    "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
+    "tests": [
+      "tests/unit/test_parser_helpers.py",
+      "tests/unit/test_summary_parser_characterization.py"
+    ],
+    "target_lf_sha256": "32db18ed66b1c2975ca87d1375fa40a22c15d23de75debaa9d545ad84be2e1fa"
+  },
+  {
+    "source": "src/version.py",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "destination": null,
+    "classification": "NO EXTRAÍDO",
+    "reason": "CLI, presentation, export, application paths or portable boundary",
+    "protected_contract": "Excluded from extraction core",
+    "tests": [],
+    "modification": "Not copied"
+  }
+]

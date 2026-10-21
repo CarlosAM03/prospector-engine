@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prospector-engine"
+version = "0.1.0.dev0"
+description = "Independent synchronous Google Maps extraction engine from Prospector CLI v1.0.0"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["playwright==1.61.0", "beautifulsoup4==4.15.0"]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1", "build==1.2.2.post1", "ruff==0.11.13"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["e2e: opt-in external Google Maps smoke", "browser: real browser using controlled local content"]
+addopts = "--strict-markers"
+tmp_path_retention_policy = "failed"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = [".venv", ".wheel-venv", ".tmp", "build", "dist", "docs/history"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+# Keep the extracted baseline visually comparable with frozen source.
+# New public contracts, diagnostics and tests use the formatter.
+[tool.ruff.format]
+exclude = ["src/prospector_engine/engines/**", "src/prospector_engine/models/**", "src/prospector_engine/scraper/**", "src/prospector_engine/utils/**", "tests/unit/test_batch*", "tests/unit/test_browser_runtime.py", "tests/unit/test_engine_config.py", "tests/unit/test_execution_observability.py", "tests/unit/test_google_maps*", "tests/unit/test_lazycharge_semantics.py", "tests/unit/test_models.py", "tests/unit/test_normali*", "tests/unit/test_prospector_engine.py", "tests/unit/test_search_issues.py", "tests/unit/test_selector_infrastructure.py", "tests/unit/test_summary_parser_characterization.py", "tests/unit/test_timing_budgets.py", "tests/unit/test_website_components.py", "tests/integration/test_batch*", "tests/integration/test_controlled_website_engine.py", "tests/integration/test_global_normalization_pipeline.py", "tests/integration/test_google_maps_pipeline_controlled.py", "tests/integration/test_source_identity_sidecar.py", "tests/integration/test_typed_engine_failures.py", "tests/integration/test_virtual_feed_detail_recovery.py", "tests/e2e/test_google_maps_smoke.py"]

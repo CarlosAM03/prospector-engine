@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-21",
+  "timezone": "America/Tijuana",
+  "version": "0.1.0.dev0",
+  "source": {
+    "repository": "CarlosAM03/prospector-cli",
+    "tag": "v1.0.0",
+    "tag_object": "35088b4d53c31bb4fdde6c079b5e3d2f31873a32",
+    "commit": "bd50cf7cbba76ccd75517d06037662dff4797b05",
+    "local_and_remote_tag_verified": true,
+    "extracted_modules": 53,
+    "ast_equivalent_after_packaging": 43,
+    "additive_contract_modules": 7,
+    "cli_final_status": "clean",
+    "cli_main_source_equals_tag": true,
+    "nonfunctional_refactors": 3
+  },
+  "windows": {
+    "python": "3.13.4",
+    "compile": "PASS",
+    "lint": "PASS",
+    "format_new_code_with_explicit_frozen_exclusions": "PASS",
+    "unit": {
+      "passed": 209,
+      "command": "python -m pytest tests/unit -q"
+    },
+    "integration": {
+      "passed": 38,
+      "command": "python -m pytest tests/integration -q"
+    },
+    "offline": {
+      "passed": 247,
+      "deselected": 1,
+      "command": "python -m pytest -q -m 'not e2e'"
+    },
+    "wheel_build": "PASS: python -m build --no-isolation --wheel",
+    "sdist_build": "PASS: python -m build --no-isolation --sdist",
+    "wheel_isolated_install": "PASS: python scripts/wheel_smoke.py",
+    "edge_localhost_smoke": "PASS",
+    "chromium_localhost_smoke": "PASS",
+    "environment_adaptation": "Engine-only SUBST drive and extended local editable path; details in runtime.md"
+  },
+  "linux": {
+    "python": "3.11.14",
+    "container_uid": 10001,
+    "compile": "PASS",
+    "lint": "PASS",
+    "format": "PASS",
+    "unit": {
+      "passed": 209
+    },
+    "integration": {
+      "passed": 38
+    },
+    "offline": {
+      "passed": 247,
+      "deselected": 1
+    },
+    "build_wheel_and_sdist": "PASS: python -m build --no-isolation",
+    "wheel_isolated_install_and_controlled_single_batch": "PASS: python scripts/wheel_smoke.py",
+    "execution": "scripts/container_gates.py against installed image package; no source sys.path injection"
+  },
+  "docker": {
+    "build": "PASS",
+    "image_id": "sha256:fdd9fad91cba96cf3145debdbc43cbd156ee4d0846846098a8f80e93ddb11d41",
+    "user": "10001:10001",
+    "chromium_revision": "1228",
+    "import_without_network": "PASS",
+    "controlled_browser_without_external_network": "PASS",
+    "runtime_flags": [
+      "--init",
+      "--network=none",
+      "--shm-size=1g",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges"
+    ],
+    "production_google_maps_acceptance": "NOT VERIFIED"
+  },
+  "github": {
+    "workflow": ".github/workflows/ci.yml",
+    "configuration": "CI CONFIGURED",
+    "actionlint_1_7_7": "PASS",
+    "jobs": [
+      "quality",
+      "integration",
+      "package",
+      "docker-build"
+    ],
+    "remote_execution": "NOT VERIFIED: no unambiguous Engine remote",
+    "main_protection": "NOT VERIFIED",
+    "push": "NOT PERFORMED",
+    "pull_request": "NOT CREATED",
+    "merge": "NOT PERFORMED"
+  },
+  "live_e2e": "NOT EXECUTED; opt-in only",
+  "classification": {
+    "extraction": "EXTRACTION COMPLETE",
+    "package": "PACKAGE INSTALLABLE",
+    "offline": "OFFLINE REGRESSION GREEN",
+    "server_runtime": "SERVER RUNTIME VERIFIED for controlled localhost only",
+    "ci": "CI CONFIGURED",
+    "remote_ci": "NOT VERIFIED",
+    "main": "NOT VERIFIED",
+    "review": "READY FOR PR locally; publication requires verified remote",
+    "service": "CONDITIONAL"
+  }
+}

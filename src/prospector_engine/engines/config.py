@@ -1,0 +1,48 @@
+"""Minimal extraction configuration and Google Maps limit policy."""
+
+from dataclasses import dataclass
+
+
+GOOGLE_MAPS_ENGINE_MAX_LIMIT = 100
+
+
+@dataclass(frozen=True)
+class EngineConfig:
+    """Consumer defaults, separate from the Engine's capacity policy."""
+
+    limit: int = 50
+    headless: bool = False
+    website_enrichment: bool = True
+    browser_channel: str | None = "msedge"
+
+    def __post_init__(self) -> None:
+        if type(self.limit) is not int or self.limit <= 0:
+            raise ValueError("limit must be a positive integer")
+        if type(self.headless) is not bool:
+            raise ValueError("headless must be a bool")
+        if type(self.website_enrichment) is not bool:
+            raise ValueError("website_enrichment must be a bool")
+        if self.browser_channel not in ("msedge", None):
+            raise ValueError("browser_channel must be 'msedge' or None (Playwright Chromium)")
+
+
+def resolve_limit(
+    config: EngineConfig,
+    requested_limit: int | None = None,
+    *,
+    engine_max_limit: int | None,
+) -> int:
+    """Validate against the Engine policy; never silently clamp."""
+    effective = config.limit if requested_limit is None else requested_limit
+    if type(effective) is not int or effective <= 0:
+        raise ValueError("requested limit must be a positive integer")
+    if engine_max_limit is None:
+        raise RuntimeError("engine maximum is unavailable")
+    if type(engine_max_limit) is not int or engine_max_limit <= 0:
+        raise ValueError("engine_max_limit must be a positive integer")
+    if effective > engine_max_limit:
+        raise ValueError(
+            f"requested limit {effective} exceeds engine maximum {engine_max_limit}; "
+            f"the maximum permitted limit is {engine_max_limit}"
+        )
+    return effective

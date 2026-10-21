@@ -1,0 +1,202 @@
+"""Offline orchestration and cleanup checks for the current Maps boundary."""
+
+
+import pytest
+
+from prospector_engine.models.business import Business
+from prospector_engine.models.normalized_business import NormalizedBusiness
+from prospector_engine.engines.issue_collector import IssueCollector
+from prospector_engine.models.search_query import SearchQuery, Source
+from prospector_engine.models.source_identity import VerificationState
+from prospector_engine.scraper.google_maps import scraper
+
+
+class Browser:
+    def __init__(self):
+        self.closes = 0
+        self.headless = None
+
+    def close(self):
+        self.closes += 1
+
+
+class Runtime:
+    def __init__(self, browser, page, headless):
+        self.browser = browser
+        self.page = page
+        browser.headless = headless
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        self.browser.close()
+
+    def new_page(self):
+        return self.page
+
+
+def setup(monkeypatch, records=None, failure=None):
+    browser = Browser()
+    page = object()
+    monkeypatch.setattr(
+        scraper, "BrowserRuntime",
+        lambda *, headless: Runtime(browser, page, headless),
+    )
+    def open_page(*args, **kwargs):
+        if failure == "navigation":
+            raise RuntimeError("navigation failed")
+        assert kwargs["page_factory"]() is page
+        return page
+    def extract(*args, **kwargs):
+        if failure == "feed":
+            raise LookupError("indeterminate feed")
+        return records if records is not None else []
+    monkeypatch.setattr(scraper, "create_search_page", open_page)
+    monkeypatch.setattr(scraper, "extract_businesses", extract)
+    monkeypatch.setattr(scraper, "enrich_business", lambda **kwargs: kwargs["business"])
+    monkeypatch.setattr(scraper, "enrich_websites", lambda **kwargs: kwargs["businesses"])
+    query = SearchQuery(Source.GOOGLE_MAPS, "cafes", "Tijuana")
+    return browser, query
+
+
+def record(name, key):
+    return {"href": f"/maps/place/{name}/data=!1s{key}!",
+            "identity": {"name": name}, "business": Business(name=name)}
+
+
+def test_t_i01_fatal_navigation_closes_and_optional_partial_survives(monkeypatch):
+    browser, query = setup(monkeypatch, failure="navigation")
+    with pytest.raises(RuntimeError, match="navigation failed"):
+        scraper.search_businesses(query, 2)
+    assert browser.closes == 1
+
+    browser, query = setup(monkeypatch, [record("Cafe", "1")])
+    result = scraper.search_businesses(query, 2)
+    assert isinstance(result.businesses[0], NormalizedBusiness)
+    assert result.businesses[0].name == "CAFE" and browser.closes == 1
+    assert result.original_businesses[0].name == "Cafe"
+
+
+def test_t_i02_order_limit_query_and_total_found(monkeypatch):
+    browser, query = setup(monkeypatch, [record("A", "1"), record("B", "2")])
+    result = scraper.search_businesses(query, 2)
+    assert result.query is query
+    assert [b.name for b in result.businesses] == ["A", "B"]
+    assert [b.name for b in result.original_businesses] == ["A", "B"]
+    assert result.total_found == 2 and result.execution_time >= 0
+    assert browser.closes == 1
+
+
+
+
+def test_t_i05_stalled_feed_with_or_without_valid_business(monkeypatch):
+    browser, query = setup(monkeypatch, [record("A", "1")])
+    assert scraper.search_businesses(query, 5).total_found == 1
+    assert browser.closes == 1
+    browser, query = setup(monkeypatch, failure="feed")
+    with pytest.raises(LookupError, match="indeterminate"):
+        scraper.search_businesses(query, 5)
+    assert browser.closes == 1
+
+
+def test_t_i06_normal_and_fatal_paths_close_once_preserving_exception(monkeypatch):
+    browser, query = setup(monkeypatch, [])
+    scraper.search_businesses(query, 1)
+    assert browser.closes == 1
+    browser, query = setup(monkeypatch, failure="navigation")
+    with pytest.raises(RuntimeError, match="navigation failed"):
+        scraper.search_businesses(query, 1)
+    assert browser.closes == 1
+
+
+def test_issues_cross_pipeline_into_public_search_result(monkeypatch):
+    _, query = setup(monkeypatch, [record("Cafe", "1")])
+    collector = IssueCollector()
+    def inspect(**kwargs):
+        kwargs["issue_collector"].record("website", "inspection_unavailable")
+        return kwargs["businesses"]
+    monkeypatch.setattr(scraper, "enrich_websites", inspect)
+    result = scraper._run_google_maps(
+        query, 1, headless=True, website_enrichment=True,
+        issue_collector=collector,
+    )
+    assert result.total_found == 1
+    assert [(x.stage, x.code) for x in collector.items] == [
+        ("website", "inspection_unavailable")
+    ]
+    assert result.issues == collector.items
+
+
+def test_internal_pilot_metrics_do_not_change_result_contract(monkeypatch):
+    _, query = setup(monkeypatch, [record("Cafe", "1")])
+    metrics = {}
+    result = scraper._run_google_maps(
+        query, 1, headless=True, website_enrichment=True,
+        metrics_sink=metrics,
+    )
+    assert result.total_found == 1
+    assert metrics["observed_candidates"] == 1
+    assert metrics["cleanup_completed"] is True
+    assert all(metrics[key] >= 0 for key in (
+        "navigation_seconds", "feed_seconds", "detail_seconds", "website_seconds"
+    ))
+
+
+def test_address_fragment_category_is_cleared_without_changing_identity(monkeypatch):
+    first = record("Baja Border Maquila", "1")
+    first["business"].category = "C. Pacifico 9030"
+    first["business"].address = "C. Pacifico 9030, Parque Industrial Pacifico II"
+    second = record("Another factory", "2")
+    second["business"].category = "Fábrica"
+    second["business"].address = "C. 5 Sur 155, Tijuana"
+    third = record("Unknown address", "3")
+    third["business"].category = "Avenida Universidad 102"
+    browser, query = setup(monkeypatch, [first, second, third])
+
+    result = scraper.search_businesses(query, 3)
+
+    assert [business.name for business in result.businesses] == [
+        "BAJA BORDER MAQUILA", "ANOTHER FACTORY", "UNKNOWN ADDRESS"
+    ]
+    assert [business.category for business in result.businesses] == [
+        None, "FÁBRICA", "AVENIDA UNIVERSIDAD 102"
+    ]
+    assert [business.name for business in result.original_businesses] == [
+        "Baja Border Maquila", "Another factory", "Unknown address"
+    ]
+    assert result.total_found == 3
+    assert browser.closes == 1
+
+
+def test_p92_source_sidecar_survives_website_issue_and_keeps_position(monkeypatch):
+    feature = "0x80d94840107994c1:0x95f9d1c6296e50c3"
+    place_id = "ChIJwZR5EEBI2YARw1BuKcbR-ZU"
+    first = record("Cafe", "1")
+    first["href"] = (
+        "https://www.google.com/maps/place/Cafe/data="
+        f"!4m7!3m6!1s{feature}!8m2!3d32.5!4d-117!19s{place_id}"
+    )
+    second = record("Other", "2")
+    _, query = setup(monkeypatch, [first, second])
+
+    def detail(**kwargs):
+        if kwargs["business"].name == "Cafe":
+            kwargs["identity_sink"]["verified_selected_url"] = (
+                "https://www.google.com/maps/place/Cafe/data="
+                f"!3m6!1s{feature}!8m2!3d32.5!4d-117"
+            )
+        return kwargs["business"]
+
+    def website(**kwargs):
+        kwargs["issue_collector"].record("website", "inspection_unavailable")
+        return kwargs["businesses"]
+
+    monkeypatch.setattr(scraper, "enrich_business", detail)
+    monkeypatch.setattr(scraper, "enrich_websites", website)
+    source = scraper._run_google_maps(query, 2, headless=True, website_enrichment=True)
+    assert [business.name for business in source.businesses] == ["Cafe", "Other"]
+    assert len(source.identities) == source.total_found == 2
+    assert source.identities[0].verified.value == place_id
+    assert source.identities[1].verification_state is VerificationState.UNVERIFIED
+    assert [issue.stage for issue in source.issues] == ["website"]

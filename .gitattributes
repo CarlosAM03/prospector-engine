@@ -1,0 +1,3 @@
+* text=auto
+# Preserve the owner's historical Markdown, including intentional hard line breaks.
+docs/history/*.md -whitespace

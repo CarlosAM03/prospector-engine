@@ -1,0 +1,147 @@
+"""
+Google Maps Navigation.
+
+This module contains the Google Maps implementation of the
+Navigation Engine.
+
+Responsibilities
+----------------
+
+- Create browser pages.
+- Open Google Maps.
+- Wait until the Google Maps home is ready.
+- Execute searches through the Google Maps UI.
+- Wait until the search results page is ready.
+
+This module never performs scraping or data extraction.
+"""
+
+from playwright.sync_api import (
+    Browser,
+    Page,
+)
+import time
+
+from prospector_engine.engines._timing import remaining_ms
+from prospector_engine.engines.selector import SelectorEngine
+
+
+class GoogleMapsNavigation:
+    """
+    Google Maps navigation implementation.
+
+    Parameters
+    ----------
+    browser:
+        Playwright browser instance.
+
+    profile:
+        Selector profile associated with Google Maps.
+    """
+
+    MAPS_URL = "https://www.google.com/maps"
+    NAVIGATION_SECONDS = 50
+
+    def __init__(
+        self,
+        browser: Browser,
+        profile: str,
+        page_factory=None,
+    ) -> None:
+
+        self.browser = browser
+        self.profile = profile
+        self._page_factory = page_factory or browser.new_page
+        self._deadline = None
+
+    def open(
+        self,
+    ) -> Page:
+        """
+        Open Google Maps and wait until the home page is ready.
+
+        Returns
+        -------
+        Page
+            Playwright page positioned at the Google Maps home.
+        """
+
+        self._deadline = time.monotonic() + self.NAVIGATION_SECONDS
+        page = self._page_factory()
+
+        page.goto(
+            self.MAPS_URL,
+            wait_until="domcontentloaded",
+            timeout=remaining_ms(self._deadline, 15000),
+        )
+
+        #
+        # Google Maps is a SPA.
+        #
+        # DOMContentLoaded only guarantees that the initial HTML
+        # has been received. Give the application a brief moment
+        # to mount before resolving semantic selectors.
+        #
+
+        selector = SelectorEngine(
+            page=page,
+            profile=self.profile,
+        )
+
+        selector.wait_visible(
+            "search_box", timeout=remaining_ms(self._deadline, 10000)
+        )
+
+        return page
+
+    def search(
+        self,
+        page: Page,
+        query: str,
+    ) -> None:
+        """
+        Execute a Google Maps search.
+
+        Parameters
+        ----------
+        page:
+            Active Playwright page.
+
+        query:
+            Search text.
+        """
+
+        selector = SelectorEngine(
+            page=page,
+            profile=self.profile,
+        )
+        deadline = self._deadline or time.monotonic() + self.NAVIGATION_SECONDS
+
+        search_box = selector.wait_visible(
+            "search_box", timeout=remaining_ms(deadline, 10000)
+        )
+        #
+        # Google Maps may recreate the input element
+        # after the initial application mount.
+        #
+        # Resolve the locator immediately before typing.
+        #
+        search_box.fill(query, timeout=remaining_ms(deadline, 10000))
+
+        search_box.press("Enter", timeout=remaining_ms(deadline, 10000))
+
+        page.wait_for_url(
+            "**/maps/search/**",
+            timeout=remaining_ms(deadline, 15000),
+        )
+
+        #
+        # Navigation contract:
+        #
+        # Return only after Google Maps has transitioned
+        # from the Home view to the Search Results view.
+        #
+
+        selector.wait_visible("feed", timeout=remaining_ms(deadline, 10000))
+        # The URL and a mounted feed alone do not prove usable results.
+        selector.wait_visible("results", timeout=remaining_ms(deadline, 10000))

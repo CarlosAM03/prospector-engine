@@ -1,0 +1,226 @@
+[
+  {
+    "source": "tests/e2e/test_google_maps_smoke.py",
+    "category": "LIVE_E2E",
+    "migrated": true
+  },
+  {
+    "source": "tests/integration/test_batch_cli.py",
+    "category": "CLI_ONLY",
+    "migrated": false
+  },
+  {
+    "source": "tests/integration/test_batch_coordinator.py",
+    "category": "ENGINE_INTEGRATION",
+    "migrated": true
+  },
+  {
+    "source": "tests/integration/test_batch_deduplication_integration.py",
+    "category": "ENGINE_INTEGRATION",
+    "migrated": true
+  },
+  {
+    "source": "tests/integration/test_batch_export.py",
+    "category": "EXPORT_ONLY",
+    "migrated": false
+  },
+  {
+    "source": "tests/integration/test_cli_transitional_compatibility.py",
+    "category": "CLI_ONLY",
+    "migrated": false
+  },
+  {
+    "source": "tests/integration/test_controlled_website_engine.py",
+    "category": "ENGINE_INTEGRATION",
+    "migrated": true
+  },
+  {
+    "source": "tests/integration/test_export_service.py",
+    "category": "EXPORT_ONLY",
+    "migrated": false
+  },
+  {
+    "source": "tests/integration/test_global_normalization_pipeline.py",
+    "category": "ENGINE_INTEGRATION",
+    "migrated": true
+  },
+  {
+    "source": "tests/integration/test_google_maps_pipeline_controlled.py",
+    "category": "ENGINE_INTEGRATION",
+    "migrated": true,
+    "excluded_functions": [
+      "test_t_i03_partial_result_still_exports_legacy_schema"
+    ],
+    "notes": "Mixed module: CLI cancellation / CSV export functions excluded"
+  },
+  {
+    "source": "tests/integration/test_portable_exports.py",
+    "category": "PORTABLE_ONLY",
+    "migrated": false
+  },
+  {
+    "source": "tests/integration/test_source_identity_sidecar.py",
+    "category": "ENGINE_INTEGRATION",
+    "migrated": true
+  },
+  {
+    "source": "tests/integration/test_typed_engine_failures.py",
+    "category": "ENGINE_INTEGRATION",
+    "migrated": true
+  },
+  {
+    "source": "tests/integration/test_virtual_feed_detail_recovery.py",
+    "category": "ENGINE_INTEGRATION",
+    "migrated": true
+  },
+  {
+    "source": "tests/integration/test_website_engine.py",
+    "category": "RESEARCH",
+    "migrated": false,
+    "notes": "Interactive website probe; no pytest functions"
+  },
+  {
+    "source": "tests/research/google_maps_dom_lifecycle.py",
+    "category": "RESEARCH",
+    "migrated": false
+  },
+  {
+    "source": "tests/research/inspect_google_maps_dom.py",
+    "category": "RESEARCH",
+    "migrated": false
+  },
+  {
+    "source": "tests/unit/test_batch_contracts.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_batch_deduplication.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_browser_runtime.py",
+    "category": "ENGINE_CORE",
+    "migrated": true,
+    "excluded_functions": [
+      "test_confirmed_ctrl_c_unwinds_through_browser_runtime"
+    ],
+    "notes": "Mixed module: CLI cancellation / CSV export functions excluded"
+  },
+  {
+    "source": "tests/unit/test_cli_runtime.py",
+    "category": "CLI_ONLY",
+    "migrated": false
+  },
+  {
+    "source": "tests/unit/test_cli_v1.py",
+    "category": "CLI_ONLY",
+    "migrated": false
+  },
+  {
+    "source": "tests/unit/test_engine_config.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_execution_observability.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_google_maps_detail_panel.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_google_maps_navigation.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_google_maps_result_list.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_google_maps_source_identity.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_google_maps_website_enrichment.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_lazycharge_semantics.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_models.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_normalization_engine.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_normalization_rules.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_normalized_business.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_prospector_engine.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_search_issues.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_selector_infrastructure.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_summary_parser_characterization.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_timing_budgets.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  },
+  {
+    "source": "tests/unit/test_utils.py",
+    "category": "ENGINE_CORE",
+    "migrated": true,
+    "destination": "tests/unit/test_parser_helpers.py",
+    "excluded_functions": [
+      "test_build_output_filename_preserves_semantic_structure_without_freezing_timestamp"
+    ],
+    "notes": "Two frozen is_phone contracts migrated; file-naming/export function excluded"
+  },
+  {
+    "source": "tests/unit/test_version.py",
+    "category": "CLI_ONLY",
+    "migrated": false
+  },
+  {
+    "source": "tests/unit/test_website_components.py",
+    "category": "ENGINE_CORE",
+    "migrated": true
+  }
+]
