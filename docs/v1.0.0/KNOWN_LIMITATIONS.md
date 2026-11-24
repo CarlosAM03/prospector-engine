@@ -19,3 +19,8 @@
 
 La distribución sigue en desarrollo como `0.1.0.dev0`. El perfil productivo,
 la prueba live acotada y la promoción a v1.0.0 requieren revisión del propietario.
+El runtime controlado está probado en localhost. El navegador productivo y
+Google Maps live se registran como NOT_RUN. Los reportes automatizados del
+propietario están NO_PROVIDED. El
+[registro de hardening](dependency-hardening.md) recoge los riesgos pendientes
+del navegador, el driver y las bibliotecas del sistema.

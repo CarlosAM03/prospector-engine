@@ -74,6 +74,16 @@ versión y ruta de ejecución. La cobertura de Scout no sustituye la revisión
 del Chromium descargado por Playwright. El gate de seguridad para promover
 una release continúa abierto.
 
-El alcance residual incluye el browser, el SO de la imagen, los runners y sus
-dependencias. No se concedieron excepciones de seguridad ni se añadió una lista
-de avisos ignorados.
+## Revisión de aplicabilidad del 24 de noviembre de 2026
+
+| Componente en la imagen analizada | Evidencia y alcance | Mitigación y decisión pendiente |
+|---|---|---|
+| Chromium 149.0.7827.55 | Navega contenido de terceros y antecede a correcciones de Chrome 149. La equivalencia aviso por aviso con Headless Shell requiere revisar la revisión de Chromium. | UID 10001, `cap-drop=ALL` y `no-new-privileges` se probaron en Docker. El Engine no habilita explícitamente el sandbox de Chromium. Aprobar un perfil de navegador con parches y validar su aislamiento antes de producción. |
+| Node.js 24.17.0 en el driver | El proveedor confirma que la línea 24.x está afectada por [CVE-2026-123863](https://nodejs.org/en/blog/vulnerability/november-2026-security-releases/), ligado a servidores HTTP/2. El Engine usa el driver local de Playwright y no abre un servidor Node HTTP/2 por contrato. La revisión de otras rutas del driver sigue abierta. | Revisar cliente TLS, proxies y la versión de Node incluida en la actualización de Playwright. |
+| Kerberos `1.20.1-2+deb12u5` | Debian confirma avisos abiertos en Bookworm, entre ellos [CVE-2026-119079](https://security-tracker.debian.org/tracker/CVE-2026-119079). La imagen analizada instala bibliotecas cliente y el diagnóstico no configura un KDC ni un servidor de administración. | Mantener el aviso abierto y verificar rutas cliente que puedan invocarse con el perfil productivo. |
+| Xorg/Xvfb `2:21.1.7-3+deb12u13` | [Debian registra CVE-2026-109904 y CVE-2026-109903 como abiertos](https://security-tracker.debian.org/tracker/source-package/xorg-server) en Bookworm. La prueba controlada usa Chromium headless y no arranca Xvfb. | Verificar si el despliegue necesita Xvfb. Separar esa evaluación de la validación headless. |
+| glibc `2.36-9+deb12u14` y otros paquetes Debian | [Debian registra avisos abiertos para glibc en Bookworm](https://security-tracker.debian.org/tracker/source-package/glibc). Requieren correlación con las funciones habilitadas por el runtime. | Conservar los hallazgos del scanner y revisar disponibilidad de parches y alcance por componente. |
+
+El análisis del riesgo residual sigue abierto. No se concedieron excepciones
+ni se configuró una lista de avisos ignorados. La evidencia automatizada del
+propietario continúa NO_PROVIDED.

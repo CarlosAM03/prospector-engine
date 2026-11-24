@@ -1,6 +1,6 @@
-# Aceptación propuesta del Engine v1.0.0
+# Candidato del Engine v1.0.0 para revisión
 
-Evidencia del 23 de noviembre de 2026 para el candidato de código
+Evidencia inicial del 23 de noviembre de 2026 para el candidato de código
 `307df17` en `feat/engine-v1-limit-150`. El wheel de Windows se construyó
 desde `f7ccdc0`. Los commits de código posteriores sólo cambian el Dockerfile.
 La distribución de desarrollo
@@ -28,9 +28,11 @@ sigue siendo `0.1.0.dev0` y requiere Python ≥3.11.
 | E-06 Calidad y build | PASS local | `compileall`, Ruff lint y formato, 214 unitarias, 39 de integración, 253 offline y una live excluida. `python -m build` generó sdist y wheel. |
 | E-07 Instalación aislada | PASS local | `python scripts/wheel_smoke.py` instaló el wheel con sus dependencias en una venv limpia. El intérprete aislado importó desde `site-packages` y ejecutó single y batch con límite 150 y fuente controlada. |
 | Docker local | PASS | Python 3.11.18 en Linux amd64, imagen local `prospector-engine:307df17`, manifest digest `sha256:143a0fba6ec5a8b5e971eb194034329c50306ebc77c660f3fe37190a9b75d300`. Pasaron build, diagnóstico non-root con Chromium y restricciones del workflow, `pip check`, compile, Ruff y 253 pruebas offline en un contenedor efímero. |
-| E-08 CI GitHub | NOT_RUN para el candidato | `main` tiene checks obligatorios. La [corrida exitosa de GitHub](https://github.com/CarlosAM03/prospector-engine/actions/runs/39608150150) corresponde a `70f6081`. La rama candidata existe localmente. |
+| E-08 CI GitHub | NOT_RUN al preparar el push | El workflow queda habilitado para pushes a `feat/engine-v1-limit-150`. Verificar la conclusión y el SHA en [Actions de la rama](https://github.com/CarlosAM03/prospector-engine/actions?query=branch%3Afeat%2Fengine-v1-limit-150). La [corrida anterior de GitHub](https://github.com/CarlosAM03/prospector-engine/actions/runs/39608150150) corresponde al baseline `70f6081`. |
 | E-09 Google Maps live | NOT_RUN | La prueba depende de autorización expresa y del perfil de browser aprobado. |
-| E-10 Promoción | DEFERRED | La aceptación, el versionado y la publicación quedan pendientes del propietario. GitHub devolvió cero tags y releases del Engine. |
+| Navegador productivo | NOT_RUN | Edge sigue siendo el perfil predeterminado. El diagnóstico de Chromium cubre localhost. El perfil de despliegue requiere aceptación y validación propias. |
+| E-10 Promoción estable | DEFERRED | La rama feature se prepara para revisión. El merge, el versionado estable y la release quedan pendientes de aprobación. |
+| Reportes automatizados del propietario | NOT_RUN / NO_PROVIDED | La revisión se basó en fuentes primarias y en los scanners del candidato. No había reportes del propietario en el checkout. |
 | SEC-01 Dependencias Python | Revisado con hallazgo residual | `pip-audit` del candidato reportó un aviso en Soup Sieve. El parser usa búsquedas por etiqueta y atributos. No se encontró la ruta de selectores afectada. Los reportes del propietario figuran como NO_PROVIDED. |
 | SEC-02 Browser y SO | Abierto | Docker Scout terminó con 237 asociaciones, 38 de severidad alta y cero críticas. Queda pendiente clasificar las alertas residuales y validar una revisión del browser antes de promover. |
 
@@ -39,6 +41,13 @@ local usa Windows 11 x64, Python 3.13.4 y una copia del árbol versionado en una
 ruta temporal corta. El checkout original supera el límite de rutas de algunas
 herramientas Python. Las salidas locales se guardan en
 `artifacts/engine-v1-candidate/` y `artifacts/v1-docker/`.
+
+El 24 de noviembre se repitieron los gates sobre el checkout existente montado
+en Linux amd64 con Python 3.11.18. Pasaron `pip check`, `compileall`, Ruff
+lint y formato, 253 pruebas offline con una live excluida,
+`python -m build --no-isolation` y `python scripts/wheel_smoke.py`.
+El smoke importó el wheel instalado en una venv aislada y comprobó 150 en
+single y batch. Las versiones de desarrollo se conservan para revisión.
 
 ## Solicitud de integración para Service
 
