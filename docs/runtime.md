@@ -12,8 +12,8 @@ no implica concurrencia certificada ni API pública de señales.
 
 ## Imagen y ejecución
 
-Base `python:3.11.14-slim-bookworm`, digest
-`sha256:65a93d69fa75478d554f4ad27c85c1e69fa184956261b4301ebaf6dbb0a3543d`.
+Base `python:3.11.18-slim-bookworm`, digest
+`sha256:a83ba18aef0f865b1a4a611c2cf460fe446f2795673bbb9fe43be570439e3b39`.
 Playwright 1.61.0 fija Chromium 1228 (149.0.7827.55). Python y transitivas se fijan
 por constraints. Los paquetes Debian se obtienen de apt y pueden recibir cambios;
 no se promete reconstrucción byte por byte sin snapshot Debian. Conservar el digest

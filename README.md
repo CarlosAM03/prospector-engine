@@ -15,7 +15,7 @@ acredita procedencia, no aceptación de Engine v1.0.0. Se preservan íntegros el
 - Google Maps: navegación, selectors/elector/lazycharge, feed virtual, resumen y detalle.
 - Website Engine y BrowserRuntime propio por búsqueda.
 - Límite predeterminado 50 y máximo solicitado 150 por consulta de Google Maps.
-  Los valores fuera del rango se rechazan; la fuente puede devolver menos resultados.
+  Los valores fuera del rango se rechazan. La fuente puede devolver menos resultados.
 - Normalización obligatoria; originales y normalizados independientes, alineados 1:1.
 - Issues recuperables, resultados parciales y errores fatales tipados.
 - Identidad verificada P92 y deduplicación estricta entre consultas, sin matching comercial.
