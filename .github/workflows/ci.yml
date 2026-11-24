@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: [main, feat/extract-cli-v1-engine]
+    branches: [main, feat/extract-cli-v1-engine, feat/engine-v1-limit-150]
   pull_request:
     branches: [main]
   workflow_dispatch:
