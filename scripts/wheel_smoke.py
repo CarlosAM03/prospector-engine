@@ -46,22 +46,23 @@ import prospector_engine as api
 from prospector_engine import ProspectorEngine, EngineConfig, SearchQuery, Source
 assert 'site-packages' in str(Path(api.__file__))
 assert EngineConfig().limit == 50
-assert ProspectorEngine.ENGINE_MAX_LIMIT == 100
+assert ProspectorEngine.ENGINE_MAX_LIMIT == 150
 assert SearchQuery(Source.GOOGLE_MAPS, 'cafe', 'TJ').source is Source.GOOGLE_MAPS
 assert api.__version__ == '0.1.0.dev0'
 from types import SimpleNamespace
 from unittest.mock import patch
 def controlled_source(query, limit, **options):
+    assert limit == 150
     return SimpleNamespace(query=query, businesses=[api.Business(' cafe ')], issues=[],
                            identities=[api.SourceIdentityEvidence.unverified()])
 query = SearchQuery(Source.GOOGLE_MAPS, 'cafe', 'TJ')
 with patch('prospector_engine.engines.prospector_engine._run_google_maps', controlled_source):
-    engine = ProspectorEngine(EngineConfig(limit=1))
+    engine = ProspectorEngine(EngineConfig(limit=150))
     result = engine.search(query)
     assert result.businesses[0].name == 'CAFE'
     assert result.original_businesses[0].name == ' cafe '
     assert result.source_identities[0].verified is None
-    batch = engine.search_many([api.BatchQuery(query, 1)])
+    batch = engine.search_many([api.BatchQuery(query, 150)])
     assert batch.total_exportable == 1
 print('isolated wheel consumer PASS:', api.__file__)
 """
