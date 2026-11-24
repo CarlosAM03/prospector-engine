@@ -239,14 +239,14 @@ def test_verified_empty_is_distinct_from_ambiguous_zero(monkeypatch):
     assert run() == []
 
 
-@pytest.mark.parametrize("available,expected", [(100, 100), (105, 100), (35, 35)])
-def test_100_candidate_policy_is_ordered_and_bounded_offline(
+@pytest.mark.parametrize("available,expected", [(150, 150), (155, 150), (35, 35)])
+def test_150_candidate_policy_is_ordered_and_bounded_offline(
     monkeypatch, available, expected
 ):
     batches = [[card(f"Cafe {index}", str(index)) for index in range(available)]]
-    page, run = collect(monkeypatch, batches, 100, idle=2)
+    page, run = collect(monkeypatch, batches, 150, idle=2)
     results = run()
     assert len(results) == expected
     assert names(results) == [f"Cafe {index}" for index in range(expected)]
     assert len({item["href"] for item in results}) == expected
-    assert page.wheels == (0 if available >= 100 else 2)
+    assert page.wheels == (0 if available >= 150 else 2)

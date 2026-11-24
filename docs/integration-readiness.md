@@ -5,7 +5,7 @@ Estado: interfaz Python IMPLEMENTED. Integración con Service CONDITIONAL; no se
 | Entrada del consumidor | Engine |
 |---|---|
 | keyword, location, source | SearchQuery; validar strings no vacíos en consumidor |
-| limit | EngineConfig, rango 1–100; default 50 |
+| limit | EngineConfig, rango 1–150; default 50 |
 | política de browser | Edge por defecto; Chromium opt-in con headless explícito |
 | progreso | observe_execution en el thread del worker |
 | cancelación cooperativa | cancellation_scope con token compartido; outcome explícito |
@@ -24,7 +24,7 @@ paralela; comenzar con una invocación activa es una política conservadora del 
 | website_title, website_description, has_contact_page, has_about_page, website_status | metadata del consumidor, con naming acordado |
 | issues | Conservar en diagnósticos; política de callback pendiente |
 
-El contrato HTTP consultado sólo exige `limit >= 1`: carece de máximo 100 y de reglas
+El contrato HTTP consultado sólo exige `limit >= 1`: carece de máximo 150 y de reglas
 de texto no vacío. `PipelineProgress` exige porcentaje cuando existe, pero permite
 progreso null. Recomendación: enviar null hasta definir una política de porcentaje;
 no presentar el ratio de una etapa como progreso global.
@@ -42,8 +42,7 @@ No existe endpoint interno de cancelación en ese baseline. No se alteró el con
 
 El adaptador debe capturar `CancellationRequested` explícitamente y no enviar causas,
 stack traces, HTML o rutas internas a Platform. La disponibilidad de browser en localhost
-no certifica Google Maps live, confiabilidad headless, concurrencia ni capacidad universal
-100. Website contact/about y content_type siguen con las limitaciones del baseline.
+no certifica Google Maps live, confiabilidad headless, concurrencia ni que una consulta devuelva los 150 resultados solicitados. Website contact/about y content_type siguen con las limitaciones del baseline.
 
 Pendientes externos: validar drifts HTTP, aceptación live del browser productivo y
 prueba end-to-end del futuro adaptador. Ninguno autoriza escribir en Backend o Service.

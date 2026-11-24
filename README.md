@@ -14,7 +14,8 @@ acredita procedencia, no aceptación de Engine v1.0.0. Se preservan íntegros el
 - `search()` y `search_many()` secuencial de 1–5 consultas.
 - Google Maps: navegación, selectors/elector/lazycharge, feed virtual, resumen y detalle.
 - Website Engine y BrowserRuntime propio por búsqueda.
-- Límite predeterminado 50, máximo Google Maps 100, sin clamp.
+- Límite predeterminado 50 y máximo solicitado 150 por consulta de Google Maps.
+  Los valores fuera del rango se rechazan; la fuente puede devolver menos resultados.
 - Normalización obligatoria; originales y normalizados independientes, alineados 1:1.
 - Issues recuperables, resultados parciales y errores fatales tipados.
 - Identidad verificada P92 y deduplicación estricta entre consultas, sin matching comercial.
@@ -116,9 +117,9 @@ Para importación solamente, añadir `python -m prospector_engine.diagnostics`.
 Python 3.11/3.13, integración Ubuntu/Windows; push main/rama feature, PR main y dispatch.
 Permisos mínimos contents read. El live no es required check ni se publican releases.
 
-**CI CONFIGURED; REMOTE CI NOT VERIFIED; MAIN PROTECTION NOT VERIFIED.** No existe
-remote inequívoco del Engine. [github.md](docs/github.md) prepara publicación y
-ruleset con los checks exactos. No se hizo merge a main.
+El remoto configurado es `CarlosAM03/prospector-engine`. Los resultados de CI de
+la extracción se registran en [validation-results.json](docs/validation-results.json).
+La evidencia del candidato se mantiene en el [informe de aceptación](docs/v1.0.0/acceptance-report.md).
 
 ## Integración, versión y límites
 

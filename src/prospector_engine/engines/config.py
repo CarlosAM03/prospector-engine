@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 
 
-GOOGLE_MAPS_ENGINE_MAX_LIMIT = 100
+GOOGLE_MAPS_ENGINE_MAX_LIMIT = 150
 
 
 @dataclass(frozen=True)

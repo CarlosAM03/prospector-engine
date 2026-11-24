@@ -40,19 +40,19 @@ def test_preflight_rejects_unordered_or_wrong_cardinality_before_source(queries,
         ProspectorEngine(EngineConfig())._preflight_batch(queries)
 
 
-@pytest.mark.parametrize("bad", [0, 101, True, 1.5, "5", None])
+@pytest.mark.parametrize("bad", [0, -1, 151, True, 1.5, "5", None])
 def test_preflight_rejects_invalid_request_limits(bad):
     with pytest.raises(ProspectorConfigurationError):
         ProspectorEngine(EngineConfig())._preflight_batch([request(bad)])
 
 
-def test_preflight_accepts_100_and_keeps_identical_queries_separate():
-    source = request(100)
+def test_preflight_accepts_150_and_keeps_identical_queries_separate():
+    source = request(150)
     snapshot = ProspectorEngine(EngineConfig())._preflight_batch([source, source])
     assert len(snapshot) == 2
     assert snapshot[0] is not snapshot[1]
     assert snapshot[0].query is not snapshot[1].query
-    assert snapshot[0].limit == snapshot[1].limit == 100
+    assert snapshot[0].limit == snapshot[1].limit == 150
 
 
 @pytest.mark.parametrize("bad", [object(), SearchQuery(Source.GOOGLE_MAPS, "x", "y"), BatchQuery("wrong", 1)])

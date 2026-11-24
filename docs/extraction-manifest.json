@@ -175,8 +175,8 @@
     "dependencies": [
       "dataclasses"
     ],
-    "modification": "Add browser_channel; Edge default unchanged",
-    "target_sha256": "c429cd2fa91c06138f490a4ceb7efd998aa930ebc375a07af1633d3d61ed8296",
+    "modification": "Add browser_channel (Edge default unchanged); raise per-query maximum from 100 to 150",
+    "target_sha256": "58591e946b93da9a23aee08765dc83a7191a4100de444e9ad2bb0b5e710c79e5",
     "ast_equivalent_after_packaging": false,
     "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
     "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
@@ -184,7 +184,7 @@
       "tests/unit/test_engine_config.py",
       "tests/unit/test_prospector_engine.py"
     ],
-    "target_lf_sha256": "c429cd2fa91c06138f490a4ceb7efd998aa930ebc375a07af1633d3d61ed8296"
+    "target_lf_sha256": "58591e946b93da9a23aee08765dc83a7191a4100de444e9ad2bb0b5e710c79e5"
   },
   {
     "source": "src/engines/errors.py",

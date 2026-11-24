@@ -84,22 +84,22 @@ def test_legacy_limits_are_passed_through_without_engine_policy(monkeypatch):
     assert seen == [0, 101]
 
 
-def test_controlled_hundred_results_keep_order_and_count(monkeypatch):
-    originals = [Business(f" Cafe {index} ") for index in range(100)]
+def test_controlled_150_results_keep_order_and_count(monkeypatch):
+    originals = [Business(f" Cafe {index} ") for index in range(150)]
     monkeypatch.setattr(
         prospector_engine, "_run_google_maps",
         lambda q, limit, **kwargs: _SourceResult(
             q, originals[:limit], identities=unverified(limit),
         ),
     )
-    result = ProspectorEngine(EngineConfig(limit=100)).search(query())
-    assert result.total_found == 100
-    assert len(result.original_businesses) == 100
+    result = ProspectorEngine(EngineConfig(limit=150)).search(query())
+    assert result.total_found == 150
+    assert len(result.original_businesses) == len(result.source_identities) == 150
     assert [item.name for item in result.businesses] == [
-        f"CAFE {index}" for index in range(100)
+        f"CAFE {index}" for index in range(150)
     ]
     assert [item.name for item in originals] == [
-        f" Cafe {index} " for index in range(100)
+        f" Cafe {index} " for index in range(150)
     ]
 
 
