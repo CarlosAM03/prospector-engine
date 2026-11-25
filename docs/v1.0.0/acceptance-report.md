@@ -69,3 +69,33 @@ El sdist tiene SHA-256
 Consultar las [limitaciones](KNOWN_LIMITATIONS.md), la
 [matriz de equivalencia](extraction-gap-matrix.md) y el
 [registro de seguridad](dependency-hardening.md) antes de promover el candidato.
+
+## Evaluación posterior del runtime protegido
+
+El baseline publicado `030a82d63a499a8abe65352d282ccc9bbc076ff3` pasó ocho
+jobs en GitHub. El código candidato de seguridad reside en `9eb5a25`, con
+el marcador de compatibilidad del wheel en `436758a`. La regresión local
+usó Python 3.11.18, donde el marcador conserva el mismo pin.
+Su [CI de rama](https://github.com/CarlosAM03/prospector-engine/actions?query=branch%3Afeat%2Fengine-v1-limit-150)
+se debe verificar por el SHA exacto de la publicación.
+
+El perfil y el procedimiento reproducible constan en el
+[suplemento para Service](service-runtime-supplement.md). La aceptación del
+host productivo, la política de egress y la prueba de Google Maps mediante el
+[protocolo live](live-acceptance.md) siguen pendientes del propietario.
+
+| Gate de esta revisión | Resultado | Evidencia |
+|---|---|---|
+| Contrato y regresión Linux | PASS | 256 offline, una live excluida. Incluye fixtures de navegación y extracción, batch y dedup, normalización, incidencias, observabilidad y cancelación con cleanup. |
+| Calidad y paquete | PASS | Ruff lint y formato, compileall, pip check, wheel y sdist. Instalación en venv aislada y ambos puntos de entrada con 150. |
+| Docker y localhost | PASS | Build Linux amd64 con Python 3.11.18. Smoke non-root sin red y HTTP localhost con el perfil protegido derivado. |
+| Chromium con seccomp Docker por defecto | FAIL | Chromium detuvo el arranque con «No usable sandbox». Se propagó error tipado. |
+| Chromium con perfil upstream | FAIL | El zygote falló al llamar `chroot`. Se propagó error tipado. |
+| Chromium con variante de seccomp | PASS local | Se permitió sólo `chroot` además del perfil upstream. La prueba comprobó UID 10001, filtro seccomp, capacidades efectivas vacías, no-new-privileges, raíz de solo lectura, tmpfs, loopback, ausencia de `--no-sandbox` y cleanup de los procesos del navegador y temporales. |
+| Docker Scout después del cambio | FAIL operativo | Sin espacio en el directorio temporal para indexar la imagen. La comparación de inventario y PyPI tiene cobertura parcial. |
+| Host productivo, egress y Google Maps live | NOT_RUN | Requieren aceptación del propietario. Los reportes automatizados continúan NO_PROVIDED. |
+
+La suite offline completa usó el perfil de compatibilidad. El diagnóstico
+específico validó el perfil protegido y el HTTP localhost. Queda pendiente
+ejecutar los fixtures protegidos en el host de destino y aprobar la regla
+seccomp, el aislamiento de red y los avisos residuales.

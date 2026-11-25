@@ -74,7 +74,7 @@ versión y ruta de ejecución. La cobertura de Scout no sustituye la revisión
 del Chromium descargado por Playwright. El gate de seguridad para promover
 una release continúa abierto.
 
-## Revisión de aplicabilidad del 24 de noviembre de 2026
+## Revisión de aplicabilidad del baseline publicado
 
 | Componente en la imagen analizada | Evidencia y alcance | Mitigación y decisión pendiente |
 |---|---|---|
@@ -84,6 +84,34 @@ una release continúa abierto.
 | Xorg/Xvfb `2:21.1.7-3+deb12u13` | [Debian registra CVE-2026-109904 y CVE-2026-109903 como abiertos](https://security-tracker.debian.org/tracker/source-package/xorg-server) en Bookworm. La prueba controlada usa Chromium headless y no arranca Xvfb. | Verificar si el despliegue necesita Xvfb. Separar esa evaluación de la validación headless. |
 | glibc `2.36-9+deb12u14` y otros paquetes Debian | [Debian registra avisos abiertos para glibc en Bookworm](https://security-tracker.debian.org/tracker/source-package/glibc). Requieren correlación con las funciones habilitadas por el runtime. | Conservar los hallazgos del scanner y revisar disponibilidad de parches y alcance por componente. |
 
-El análisis del riesgo residual sigue abierto. No se concedieron excepciones
-ni se configuró una lista de avisos ignorados. La evidencia automatizada del
-propietario continúa NO_PROVIDED.
+## Cambios de seguridad del 24 de noviembre de 2026
+
+| Componente | Baseline → candidato | Evidencia y alcance |
+|---|---|---|
+| Playwright, Chromium y Node | 1.61.0 → 1.65.2. Chromium 149.0.7827.55 → 159.0.8154.6. Node 24.17.0 → 26.13.1. | El proveedor confirma el roll de Chromium y la incorporación del Node con correcciones de HTTP/2 y TLS. La imagen instala libatomic1 antes de arrancar el driver. El avance de versión no certifica cobertura completa de Chromium. [Releases de Playwright Python](https://github.com/microsoft/playwright-python/releases) |
+| Soup Sieve | 3.0.3 → 4.1.3, fijado en el wheel y constraints | El rango de CVE-2026-126190 termina antes de 4.0.0. La selección de etiquetas de BeautifulSoup permanece en las mismas rutas del Engine. [Aviso GHSA-mmhr-3c5m-f64f](https://github.com/advisories/GHSA-mmhr-3c5m-f64f) |
+| Debian y bootstrap | Python 3.11.18 slim-bookworm por el mismo digest, pip 26.3 | libatomic1 se incorpora por el nuevo driver. Las dependencias de navegador se resuelven desde Debian durante el build. Para un aviso Debian, una versión corregida de otra suite no demuestra disponibilidad para Bookworm. |
+
+El [inventario del baseline](scout-baseline.tsv) conserva cada asociación del
+scanner con componente, severidad, rango, versión corregida cuando Scout la
+identifica y análisis de exposición por familia. Cuando falta evidencia de un
+camino concreto se mantiene pendiente. La presencia del componente y su alcance
+efectivo se registran de forma independiente.
+
+No se concedieron excepciones ni se configuró una lista de avisos ignorados.
+La evidencia automatizada del propietario continúa NO_PROVIDED.
+
+Docker Scout falló después del cambio al escribir su capa temporal en el disco
+del host. El inventario candidato se obtuvo con `dpkg-query -W` y la comparación
+por versión con el índice PyPI figura en
+[security-inventory-comparison.json](security-inventory-comparison.json). Los
+209 paquetes Debian previos conservaron sus versiones y se añadió libatomic1
+12.2.0-14+deb12u1. Se mantienen pendientes los avisos Debian del baseline
+hasta verificar el alcance y las correcciones en Bookworm. Esa evidencia no sustituye
+el reescaneo de la imagen completa. La ausencia de un aviso PyPI de Playwright
+tampoco certifica sus binarios Chromium y Node ni los paquetes Debian.
+
+Soup Sieve 4.1.3 requiere Python 3.11.5 o posterior. El pin del wheel usa un
+marcador de entorno para preservar su instalación en Python 3.11.0–3.11.4.
+En esos parches el resolvedor puede escoger una versión afectada de Soup Sieve.
+La conclusión de corrección se limita al perfil con el pin 4.1.3.

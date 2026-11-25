@@ -13,9 +13,10 @@
 - Edge visible es el perfil predeterminado. Chromium administrado por Playwright
   se selecciona con `browser_channel=None`. La validación controlada no mide
   fiabilidad live, equivalencia entre browsers, uso bajo concurrencia o un SLA.
-- El contenedor ejecuta como UID 10001. Chromium no tiene su sandbox habilitado
-  explícitamente por el Engine. El perfil de despliegue y las decisiones sobre
-  aislamiento y egress requieren aceptación del propietario.
+- El contenedor ejecuta como UID 10001. El perfil Linux de Service debe solicitar
+  explícitamente el sandbox con `PROSPECTOR_CHROMIUM_SANDBOX=1` y validar
+  namespaces, seccomp y egress en el host productivo. El perfil predeterminado
+  de la biblioteca sigue siendo Edge instalado.
 
 La distribución sigue en desarrollo como `0.1.0.dev0`. El perfil productivo,
 la prueba live acotada y la promoción a v1.0.0 requieren revisión del propietario.
