@@ -28,8 +28,8 @@ colas, auth, tenants, campañas, CRM ni persistencia.
 ## Instalación y runtime
 
 Requiere **Python >=3.11**. El wheel declara Playwright 1.65.2, BeautifulSoup4
-4.15.0 y Soup Sieve 4.1.3. [constraints.txt](requirements/constraints.txt) fija
-las transitivas y herramientas.
+4.15.0 y fija Soup Sieve 4.1.3 en Python 3.11.5 o posterior.
+[constraints.txt](requirements/constraints.txt) fija las transitivas y herramientas.
 
 ```powershell
 python -m venv .venv
