@@ -14,7 +14,8 @@ acredita procedencia, no aceptación de Engine v1.0.0. Se preservan íntegros el
 - `search()` y `search_many()` secuencial de 1–5 consultas.
 - Google Maps: navegación, selectors/elector/lazycharge, feed virtual, resumen y detalle.
 - Website Engine y BrowserRuntime propio por búsqueda.
-- Límite predeterminado 50, máximo Google Maps 100, sin clamp.
+- Límite predeterminado 50 y máximo solicitado 150 por consulta de Google Maps.
+  Los valores fuera del rango se rechazan. La fuente puede devolver menos resultados.
 - Normalización obligatoria; originales y normalizados independientes, alineados 1:1.
 - Issues recuperables, resultados parciales y errores fatales tipados.
 - Identidad verificada P92 y deduplicación estricta entre consultas, sin matching comercial.
@@ -26,8 +27,9 @@ colas, auth, tenants, campañas, CRM ni persistencia.
 
 ## Instalación y runtime
 
-Requiere **Python >=3.11**. Dependencias directas: Playwright 1.61.0 y BeautifulSoup4
-4.15.0. [constraints.txt](requirements/constraints.txt) fija transitivas/herramientas.
+Requiere **Python >=3.11**. El wheel declara Playwright 1.65.2, BeautifulSoup4
+4.15.0 y fija Soup Sieve 4.1.3 en Python 3.11.5 o posterior.
+[constraints.txt](requirements/constraints.txt) fija las transitivas y herramientas.
 
 ```powershell
 python -m venv .venv
@@ -104,7 +106,7 @@ docker build -t prospector-engine:dev .
 docker run --rm --init --shm-size=1g --cap-drop=ALL --security-opt=no-new-privileges prospector-engine:dev
 ```
 
-La imagen instala el wheel real, Python 3.11 y Chromium 1228; ejecuta UID 10001.
+La imagen instala el wheel real, Python 3.11 y Chromium 1255; ejecuta UID 10001.
 Su diagnóstico navega a HTTP localhost y verifica cleanup; no es un servidor HTTP
 de producto ni scraping público. Base fijada por digest y constraints Python.
 Para importación solamente, añadir `python -m prospector_engine.diagnostics`.
@@ -116,9 +118,9 @@ Para importación solamente, añadir `python -m prospector_engine.diagnostics`.
 Python 3.11/3.13, integración Ubuntu/Windows; push main/rama feature, PR main y dispatch.
 Permisos mínimos contents read. El live no es required check ni se publican releases.
 
-**CI CONFIGURED; REMOTE CI NOT VERIFIED; MAIN PROTECTION NOT VERIFIED.** No existe
-remote inequívoco del Engine. [github.md](docs/github.md) prepara publicación y
-ruleset con los checks exactos. No se hizo merge a main.
+El remoto configurado es `CarlosAM03/prospector-engine`. Los resultados de CI de
+la extracción se registran en [validation-results.json](docs/validation-results.json).
+La evidencia del candidato se mantiene en el [informe de aceptación](docs/v1.0.0/acceptance-report.md).
 
 ## Integración, versión y límites
 

@@ -15,9 +15,9 @@ root = Path.cwd()
 assert frozen.git("rev-parse", "refs/tags/v1.0.0^{commit}").decode().strip() == frozen.COMMIT
 entries = json.loads((root / "docs/extraction-manifest.json").read_text(encoding="utf-8"))
 extensions = {
-    "src/engines/config.py": "Add browser_channel; Edge default unchanged",
+    "src/engines/config.py": "Add browser_channel (Edge default unchanged); raise per-query maximum from 100 to 150",
     "src/engines/prospector_engine.py": "Forward opt-in Chromium configuration for single/batch",
-    "src/engines/browser_runtime.py": "Configurable browser and actionable Chromium failure; Windows constant fallback",
+    "src/engines/browser_runtime.py": "Configurable browser, opt-in Chromium sandbox and typed launch errors",
     "src/engines/_observability.py": "Check cooperative token before existing execution events",
     "src/engines/global_pipeline.py": "Promote existing aligned evidence into result",
     "src/models/search_result.py": "Add keyword-only aligned source_identities with unknown defaults",

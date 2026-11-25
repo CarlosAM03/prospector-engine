@@ -7,7 +7,7 @@ import pytest
 from prospector_engine.engines import prospector_engine
 from prospector_engine.engines.config import EngineConfig
 from prospector_engine.engines.errors import (
-    BatchInterruptedError, ProspectorNavigationError, ProspectorRuntimeError,
+    BatchInterruptedError, ProspectorConfigurationError, ProspectorNavigationError, ProspectorRuntimeError,
 )
 from prospector_engine.engines.normalization import NormalizationEngine
 from prospector_engine.models.batch import BatchQuery, QueryStatus
@@ -34,7 +34,8 @@ def source_result(query, businesses=None, issues=None):
 
 
 def test_three_queries_run_in_order_after_full_snapshot_and_normalize_once(monkeypatch):
-    original_requests = requests("A", "B", "C")
+    original_requests = [replace(item, limit=limit) for item, limit in
+                         zip(requests("A", "B", "C"), (150, 101, 150), strict=True)]
     events = []
     active = 0
     normalize_calls = []
@@ -62,9 +63,9 @@ def test_three_queries_run_in_order_after_full_snapshot_and_normalize_once(monke
     engine = prospector_engine.ProspectorEngine(EngineConfig(limit=50))
     batch = engine.search_many(original_requests)
     assert events == [
-        ("A", 2, "open"), ("A", 2, "close"),
-        ("B", 2, "open"), ("B", 2, "close"),
-        ("C", 2, "open"), ("C", 2, "close"),
+        ("A", 150, "open"), ("A", 150, "close"),
+        ("B", 101, "open"), ("B", 101, "close"),
+        ("C", 150, "open"), ("C", 150, "close"),
     ]
     assert normalize_calls == [1, 1, 1]
     assert [entry.status for entry in batch.entries] == [QueryStatus.SUCCESS] * 3
@@ -172,12 +173,13 @@ def test_structural_sidecar_failure_never_continues(monkeypatch):
     assert caught.value.completed.entries == []
 
 
-def test_invalid_late_request_rejected_before_first_source_call(monkeypatch):
+@pytest.mark.parametrize("limit", [True, 151])
+def test_invalid_late_request_rejected_before_first_source_call(monkeypatch, limit):
     monkeypatch.setattr(
         prospector_engine, "_run_google_maps",
         lambda *args, **kwargs: pytest.fail("source called before full preflight"),
     )
     invalid = requests("A", "B")
-    invalid[1] = replace(invalid[1], limit=True)
-    with pytest.raises(Exception, match="limit"):
+    invalid[1] = replace(invalid[1], limit=limit)
+    with pytest.raises(ProspectorConfigurationError, match="limit"):
         prospector_engine.ProspectorEngine(EngineConfig()).search_many(invalid)

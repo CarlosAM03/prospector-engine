@@ -17,8 +17,8 @@ La equivalencia AST se comprueba después de adaptar únicamente imports.
 | `src/engines/_timing.py` | `src/prospector_engine/engines/_timing.py` | COPIADO SIN CAMBIO FUNCIONAL | Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging |
 | `src/engines/batch/__init__.py` | `src/prospector_engine/engines/batch/__init__.py` | ADAPTADO POR PACKAGING | Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging |
 | `src/engines/batch/deduplication.py` | `src/prospector_engine/engines/batch/deduplication.py` | ADAPTADO POR PACKAGING | Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging |
-| `src/engines/browser_runtime.py` | `src/prospector_engine/engines/browser_runtime.py` | AMPLIADO CON CONTRATO NUEVO | Configurable browser and actionable Chromium failure; Windows constant fallback |
-| `src/engines/config.py` | `src/prospector_engine/engines/config.py` | AMPLIADO CON CONTRATO NUEVO | Add browser_channel; Edge default unchanged |
+| `src/engines/browser_runtime.py` | `src/prospector_engine/engines/browser_runtime.py` | AMPLIADO CON CONTRATO NUEVO | Configurable browser, opt-in Chromium sandbox and typed launch errors |
+| `src/engines/config.py` | `src/prospector_engine/engines/config.py` | AMPLIADO CON CONTRATO NUEVO | Add browser_channel (Edge default unchanged); raise per-query maximum from 100 to 150 |
 | `src/engines/errors.py` | `src/prospector_engine/engines/errors.py` | COPIADO SIN CAMBIO FUNCIONAL | Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging |
 | `src/engines/global_pipeline.py` | `src/prospector_engine/engines/global_pipeline.py` | AMPLIADO CON CONTRATO NUEVO | Promote existing aligned evidence into result |
 | `src/engines/issue_collector.py` | `src/prospector_engine/engines/issue_collector.py` | ADAPTADO POR PACKAGING | Namespace imports / trailing-whitespace cleanup only; AST equivalent after packaging |

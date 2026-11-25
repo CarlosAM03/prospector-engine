@@ -2,6 +2,7 @@
 
 import sys
 import logging
+import os
 import atexit
 import asyncio
 import subprocess
@@ -61,12 +62,21 @@ class BrowserRuntime:
             with _isolate_playwright_driver_from_console_interrupt():
                 playwright = self._playwright_context.__enter__()
             try:
+                sandbox_options = {}
+                if self.channel is None and os.environ.get("PROSPECTOR_CHROMIUM_SANDBOX") == "1":
+                    sandbox_options["chromium_sandbox"] = True
                 self.browser = playwright.chromium.launch(
                     channel=self.channel, headless=self.headless, timeout=30000,
+                    **sandbox_options,
                 )
             except (PlaywrightError, OSError) as error:
                 logger.exception("Browser launch failed: channel=%s", self.channel)
                 if self.channel is None:
+                    if sandbox_options:
+                        raise ProspectorRuntimeError(
+                            "Could not launch Chromium with its sandbox enabled. "
+                            "Check browser installation and host user namespace and seccomp policy."
+                        ) from error
                     raise ProspectorRuntimeError(
                         "Playwright Chromium is required. Install the matching browser "
                         "with python -m playwright install chromium."

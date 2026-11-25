@@ -1,0 +1,43 @@
+{
+  "baseline": "030a82d63a499a8abe65352d282ccc9bbc076ff3",
+  "candidate_runtime": {
+    "python": "3.11.18",
+    "playwright": "1.65.2",
+    "node": "26.13.1",
+    "chromium": "159.0.8154.6"
+  },
+  "debian": {
+    "baseline_count": 209,
+    "candidate_count": 210,
+    "removed_or_replaced": [],
+    "added_or_replaced": [
+      "libatomic1:amd64\t12.2.0-14+deb12u1"
+    ]
+  },
+  "pypi_checks": [
+    {
+      "package": "playwright",
+      "version": "1.65.2",
+      "advisory_count": 0,
+      "source": "https://pypi.org/pypi/playwright/1.65.2/json"
+    },
+    {
+      "package": "soupsieve",
+      "version": "4.1.3",
+      "advisory_count": 0,
+      "requires_python": ">=3.11.5",
+      "source": "https://pypi.org/pypi/soupsieve/4.1.3/json"
+    },
+    {
+      "package": "beautifulsoup4",
+      "version": "4.15.0",
+      "advisory_count": 0,
+      "source": "https://pypi.org/pypi/beautifulsoup4/4.15.0/json"
+    }
+  ],
+  "scout_candidate": {
+    "result": "FAIL",
+    "reason": "Insufficient disk space while indexing image layers",
+    "coverage": "No candidate findings were produced"
+  }
+}

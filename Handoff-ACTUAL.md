@@ -2,6 +2,10 @@
 
 Fecha: 2026-10-21 (America/Tijuana). Versión: `0.1.0.dev0`, desarrollo.
 
+Este documento registra la primera extracción. El
+[informe de aceptación del candidato](docs/v1.0.0/acceptance-report.md)
+contiene el estado posterior de GitHub, el límite de 150 y la entrega a Service.
+
 ## Estado implementado
 
 Paquete instalable independiente en `src/prospector_engine`, 53 módulos extraídos

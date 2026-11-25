@@ -32,7 +32,7 @@ def test_requested_default_override_and_owner_maximum_are_distinct():
 @pytest.mark.parametrize("value", [0, -1, True, 2.5, "3"])
 def test_invalid_requested_limit_is_rejected(value):
     with pytest.raises(ValueError):
-        resolve_limit(EngineConfig(), value, engine_max_limit=100)
+        resolve_limit(EngineConfig(), value, engine_max_limit=GOOGLE_MAPS_ENGINE_MAX_LIMIT)
 
 
 def test_over_maximum_is_explicitly_rejected_without_clamping():
@@ -40,15 +40,15 @@ def test_over_maximum_is_explicitly_rejected_without_clamping():
         resolve_limit(EngineConfig(), 60, engine_max_limit=50)
 
 
-@pytest.mark.parametrize("value", [1, 50, 100])
+@pytest.mark.parametrize("value", [1, 50, 100, 101, 150])
 def test_google_maps_approved_range(value):
     assert resolve_limit(
         EngineConfig(limit=value), engine_max_limit=GOOGLE_MAPS_ENGINE_MAX_LIMIT
     ) == value
 
 
-def test_101_rejected_under_google_maps_policy():
-    with pytest.raises(ValueError, match="maximum permitted limit is 100"):
+def test_151_rejected_under_google_maps_policy():
+    with pytest.raises(ValueError, match="maximum permitted limit is 150"):
         resolve_limit(
-            EngineConfig(limit=101), engine_max_limit=GOOGLE_MAPS_ENGINE_MAX_LIMIT
+            EngineConfig(limit=151), engine_max_limit=GOOGLE_MAPS_ENGINE_MAX_LIMIT
         )

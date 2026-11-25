@@ -10,7 +10,7 @@ result = engine.search(SearchQuery(Source.GOOGLE_MAPS, "dentistas", "Tijuana"))
 ```
 
 `EngineConfig(limit=50, headless=False, website_enrichment=True, browser_channel="msedge")`
-mantiene defaults congelados. La fachada rechaza límites fuera de 1–100 antes del browser;
+mantiene defaults congelados. La fachada rechaza límites fuera de 1–150 sin ajuste automático y antes de iniciar el browser;
 el dataclass conserva su validación histórica de entero positivo. `browser_channel=None`
 selecciona explícitamente Chromium administrado por Playwright. No hay fallback silencioso.
 `SearchQuery(source, keyword, location)` conserva la semántica original: no exige texto
@@ -18,7 +18,9 @@ no vacío. El consumidor debe validarlo; cambiar esa garantía requiere decisió
 
 `search(query) -> SearchResult`; `search_many(Sequence[BatchQuery]) -> BatchSearchResult`.
 Batch acepta 1–5 solicitudes ordenadas, hace preflight y snapshot completos antes de
-ejecutar; cada consulta usa su límite y runtime independiente. Sigue siendo síncrono.
+ejecutar. Cada consulta usa su propio `BatchQuery.limit` de 1 a 150 y un runtime
+independiente. La ejecución es síncrona. La fuente puede devolver menos resultados.
+El límite se aplica antes de la selección por identidad.
 
 `SearchResult.businesses` son `NormalizedBusiness`; `original_businesses` son `Business`
 independientes y alineados 1:1 en orden. Ambos conservan sus doce campos comerciales.

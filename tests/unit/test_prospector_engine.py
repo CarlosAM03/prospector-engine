@@ -28,7 +28,7 @@ def test_facade_delegates_config_and_preserves_result(monkeypatch):
     })]
 
 
-@pytest.mark.parametrize("limit", [1, 50, 100])
+@pytest.mark.parametrize("limit", [1, 50, 100, 101, 150])
 def test_facade_accepts_approved_limits(monkeypatch, limit):
     query = SearchQuery(Source.GOOGLE_MAPS, "cafes", "Tijuana")
     observed = []
@@ -40,14 +40,14 @@ def test_facade_accepts_approved_limits(monkeypatch, limit):
     assert observed == [limit]
 
 
-def test_facade_rejects_101_before_source_io(monkeypatch):
+def test_facade_rejects_151_before_source_io(monkeypatch):
     query = SearchQuery(Source.GOOGLE_MAPS, "cafes", "Tijuana")
     monkeypatch.setattr(
         prospector_engine, "_run_google_maps",
         lambda *args, **kwargs: pytest.fail("source I/O before policy validation"),
     )
-    with pytest.raises(ProspectorConfigurationError, match="maximum permitted limit is 100"):
-        prospector_engine.ProspectorEngine(EngineConfig(limit=101)).search(query)
+    with pytest.raises(ProspectorConfigurationError, match="maximum permitted limit is 150"):
+        prospector_engine.ProspectorEngine(EngineConfig(limit=151)).search(query)
 
 
 def test_facade_rejects_over_maximum_without_clamping(monkeypatch):
