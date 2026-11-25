@@ -149,13 +149,14 @@
       "atexit",
       "contextlib",
       "logging",
+      "os",
       "playwright.sync_api",
       "prospector_engine.engines.errors",
       "subprocess",
       "sys"
     ],
-    "modification": "Configurable browser and actionable Chromium failure; Windows constant fallback",
-    "target_sha256": "3d396566efcdd980454ea64ffd2b4bd3f5731620c7340b66f9eb928e61202155",
+    "modification": "Configurable browser, opt-in Chromium sandbox and typed launch errors",
+    "target_sha256": "cf5f768ffdbb903544258a8c62ade5caf90bd6b907c91136fac6b3f3f149a963",
     "ast_equivalent_after_packaging": false,
     "reason": "Retain the complete transitive extraction core without rewriting the pipeline",
     "protected_contract": "Frozen extraction, normalization, identity, sequential batch and resource semantics",
@@ -164,7 +165,7 @@
       "tests/integration/test_cooperative_cancellation.py",
       "tests/integration/test_browser_availability.py"
     ],
-    "target_lf_sha256": "3d396566efcdd980454ea64ffd2b4bd3f5731620c7340b66f9eb928e61202155"
+    "target_lf_sha256": "cf5f768ffdbb903544258a8c62ade5caf90bd6b907c91136fac6b3f3f149a963"
   },
   {
     "source": "src/engines/config.py",

@@ -55,9 +55,10 @@ class Playwright:
         self.channel = None
         self.chromium = self
 
-    def launch(self, *, headless, channel, timeout):
+    def launch(self, *, headless, channel, timeout, chromium_sandbox=None):
         self.headless = headless
         self.channel = channel
+        self.chromium_sandbox = chromium_sandbox
         assert timeout == 30000
         if self.launch_error:
             raise self.launch_error
@@ -113,6 +114,7 @@ def test_edge_launch_failure_is_actionable_and_logs_details(monkeypatch, caplog)
 
 
 def test_chromium_configuration_and_unavailable_browser_cleanup(monkeypatch):
+    monkeypatch.delenv("PROSPECTOR_CHROMIUM_SANDBOX", raising=False)
     browser, playwright, context = fixture(monkeypatch)
     with browser_runtime.BrowserRuntime(channel=None, headless=True):
         pass
@@ -122,6 +124,24 @@ def test_chromium_configuration_and_unavailable_browser_cleanup(monkeypatch):
         with browser_runtime.BrowserRuntime(channel=None, headless=True):
             pass
     assert context.exits == 1 and failure.value.__cause__ is playwright.launch_error
+
+
+@pytest.mark.parametrize("channel,expected", [(None, True), ("msedge", None)])
+def test_sandbox_opt_in_is_scoped_to_bundled_chromium(monkeypatch, channel, expected):
+    monkeypatch.setenv("PROSPECTOR_CHROMIUM_SANDBOX", "1")
+    _, playwright, _ = fixture(monkeypatch)
+    with browser_runtime.BrowserRuntime(channel=channel, headless=True):
+        assert playwright.chromium_sandbox is expected
+
+
+def test_sandbox_launch_failure_propagates_after_cleanup(monkeypatch):
+    monkeypatch.setenv("PROSPECTOR_CHROMIUM_SANDBOX", "1")
+    _, playwright, context = fixture(monkeypatch, PlaywrightError("sandbox unavailable"))
+    with pytest.raises(ProspectorRuntimeError, match="sandbox enabled"):
+        with browser_runtime.BrowserRuntime(channel=None, headless=True):
+            pytest.fail("sandbox launch failure must stop the runtime")
+    assert playwright.chromium_sandbox is True
+    assert context.exits == 1
 
 
 def test_fatal_exception_is_preserved_and_resources_close_once(monkeypatch):

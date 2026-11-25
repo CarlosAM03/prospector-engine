@@ -17,7 +17,9 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
     PLAYWRIGHT_BROWSERS_PATH=/opt/playwright
 COPY requirements/constraints.txt /opt/constraints.txt
 RUN python -m pip install --no-cache-dir --only-binary=:all: "pip==${PIP_VERSION}" \
-    && python -m pip install --no-cache-dir -c /opt/constraints.txt playwright beautifulsoup4 \
+    && python -m pip install --no-cache-dir -c /opt/constraints.txt playwright beautifulsoup4 soupsieve \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends libatomic1 \
     && python -m playwright install --with-deps chromium \
     && rm -rf /var/lib/apt/lists/* /tmp/wheels \
     && useradd --create-home --uid 10001 engine \

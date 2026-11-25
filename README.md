@@ -27,8 +27,9 @@ colas, auth, tenants, campañas, CRM ni persistencia.
 
 ## Instalación y runtime
 
-Requiere **Python >=3.11**. Dependencias directas: Playwright 1.61.0 y BeautifulSoup4
-4.15.0. [constraints.txt](requirements/constraints.txt) fija transitivas/herramientas.
+Requiere **Python >=3.11**. El wheel declara Playwright 1.65.2, BeautifulSoup4
+4.15.0 y Soup Sieve 4.1.3. [constraints.txt](requirements/constraints.txt) fija
+las transitivas y herramientas.
 
 ```powershell
 python -m venv .venv
@@ -105,7 +106,7 @@ docker build -t prospector-engine:dev .
 docker run --rm --init --shm-size=1g --cap-drop=ALL --security-opt=no-new-privileges prospector-engine:dev
 ```
 
-La imagen instala el wheel real, Python 3.11 y Chromium 1228; ejecuta UID 10001.
+La imagen instala el wheel real, Python 3.11 y Chromium 1255; ejecuta UID 10001.
 Su diagnóstico navega a HTTP localhost y verifica cleanup; no es un servidor HTTP
 de producto ni scraping público. Base fijada por digest y constraints Python.
 Para importación solamente, añadir `python -m prospector_engine.diagnostics`.
